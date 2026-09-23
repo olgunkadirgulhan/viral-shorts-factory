@@ -96,7 +96,7 @@ def pct_str(v, dec, plus=True):
     return sign + "%" + fmt_num(abs(v), dec) if TR else sign + fmt_num(abs(v), dec) + "%"
 
 
-def draw_chart(d, series, progress, box, alpha=255, label=None):
+def draw_chart(d, series, progress, box, alpha=255, label=None, up=None):
     x0, y0, x1, y1 = box
     if not series or len(series) < 2:
         return
@@ -106,7 +106,7 @@ def draw_chart(d, series, progress, box, alpha=255, label=None):
     pts = [(x0 + (x1 - x0) * i / (n - 1), y1 - (y1 - y0) * (v - lo) / span) for i, v in enumerate(series)]
     k = max(2, int(round(n * ease(progress))))
     vis = pts[:k]
-    col = UP if series[-1] >= series[0] else DOWN
+    col = UP if (up if up is not None else series[-1] >= series[0]) else DOWN   # renk = anlatılan günlük yön
     d.polygon(vis + [(vis[-1][0], y1), (vis[0][0], y1)], fill=col + (int(alpha * 0.18),))
     d.line(vis, fill=col + (alpha,), width=9, joint="curve")
     if alpha > 200:
@@ -127,7 +127,7 @@ def draw_headline(d, osd, emphasis, t_in):
         return
     size = int(92 * (0.82 + 0.18 * ease(t_in / 0.25)))
     f = font(size)
-    key = lambda w: w.strip(".,!?:;%").replace("I", "ı").replace("İ", "i").lower()
+    key = lambda w: (w.strip(".,!?:;%()").replace("I", "ı").replace("İ", "i") if TR else w.strip(".,!?:;%()")).lower()
     em = {key(w) for w in (emphasis or "").split()}
     y = HEAD_Y
     if len(osd) < 40:
@@ -244,9 +244,9 @@ def frame(bg, beat, market, ticker, t_beat, dur_beat, t_total, dur_total):
     d.text((W - 80 - d.textlength(market[tk]["name"], font=font(40)), 140), market[tk]["name"], font=font(40), fill=MUTED)
 
     if visual == "chart":
-        draw_chart(d, series, min(1, prog / 0.7), VIS, 255, _ticker_label(market[tk]))
+        draw_chart(d, series, min(1, prog / 0.7), VIS, 255, _ticker_label(market[tk]), market[tk]["change_pct"] >= 0)
     else:
-        draw_chart(d, series, 1, VIS, 55)                                 # arkada soluk grafik
+        draw_chart(d, series, 1, VIS, 55, up=market[tk]["change_pct"] >= 0)   # arkada soluk grafik
         if visual == "list":
             draw_tiles(d, market, [tk] + [k for k in keys if k != tk], prog)
         elif visual == "compare":
