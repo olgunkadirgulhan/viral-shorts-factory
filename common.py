@@ -30,8 +30,13 @@ for _d in (DATA, OUT, STATE, LOGS, BRAIN):
     _d.mkdir(parents=True, exist_ok=True)
 
 CONTENT_LANG = os.environ.get("CONTENT_LANG", "en")
-LLM_BACKEND = os.environ.get("LLM_BACKEND", "ollama")                 # ollama | anthropic
+# Sırayla denenir; anahtarı olmayan atlanır, hata/limit verende sıradakine geçilir.
+# gemini (ücretsiz) → groq (ücretsiz) → anthropic (ücretli, opsiyonel) → ollama (yerel GPU)
+LLM_BACKEND = os.environ.get("LLM_BACKEND", "gemini,groq,anthropic")
 LLM_CREATIVE_BACKEND = os.environ.get("LLM_CREATIVE_BACKEND", LLM_BACKEND)  # hook + script adımı (§8.7)
+GEMINI_MODELS = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash,gemini-2.5-flash-lite").split(",")
+GROQ_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
+LLM_MIN_INTERVAL = float(os.environ.get("LLM_MIN_INTERVAL", "7"))   # ücretsiz katman dakika limiti için
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/generate")
 OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "llama3.1:8b")
 OLLAMA_NUM_CTX = int(os.environ.get("OLLAMA_NUM_CTX", "16384"))
@@ -118,10 +123,64 @@ def _anthropic(system, prompt, as_json):
     return "".join(b.text for b in resp.content if b.type == "text")
 
 
+def _gemini(system, prompt, as_json):
+    """Google Gemini API, ücretsiz katman (aistudio.google.com anahtarı, kart gerekmez)."""
+    last = None
+    for model in GEMINI_MODELS:                      # Flash limiti dolarsa Flash-Lite
+        r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{model.strip()}:generateContent",
+                          params={"key": os.environ["GEMINI_API_KEY"]}, timeout=300, json={
+                              "systemInstruction": {"parts": [{"text": system}]},
+                              "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+                              "generationConfig": {"temperature": 0.8, "maxOutputTokens": 8192,
+                                                   **({"responseMimeType": "application/json"} if as_json else {})}})
+        if r.ok:
+            cands = r.json().get("candidates") or []
+            parts = cands[0].get("content", {}).get("parts", []) if cands else []
+            txt = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+            if txt.strip():
+                return txt
+            last = f"{model}: boş yanıt ({cands[0].get('finishReason') if cands else 'no candidates'})"
+        else:
+            last = f"{model}: {r.status_code} {r.text[:200]}"
+    raise RuntimeError(f"gemini: {last}")
+
+
+def _groq(system, prompt, as_json):
+    """Groq, ücretsiz katman (console.groq.com anahtarı, kart gerekmez). Dakikada 8K token sınırı var."""
+    r = requests.post("https://api.groq.com/openai/v1/chat/completions", timeout=300,
+                      headers={"Authorization": f"Bearer {os.environ['GROQ_API_KEY']}"}, json={
+                          "model": GROQ_MODEL, "temperature": 0.8, "max_tokens": 4096,
+                          **({"response_format": {"type": "json_object"}} if as_json else {}),
+                          "messages": [{"role": "system", "content": system}, {"role": "user", "content": prompt}]})
+    if not r.ok:
+        raise RuntimeError(f"groq: {r.status_code} {r.text[:200]}")
+    return r.json()["choices"][0]["message"]["content"]
+
+
+_BACKENDS = {"gemini": (_gemini, "GEMINI_API_KEY"), "groq": (_groq, "GROQ_API_KEY"),
+             "anthropic": (_anthropic, "ANTHROPIC_API_KEY"), "ollama": (_ollama, None)}
+_last_call = [0.0]
+
+
 def llm(system, prompt, as_json=True, creative=False):
-    backend = LLM_CREATIVE_BACKEND if creative else LLM_BACKEND
-    txt = (_anthropic if backend == "anthropic" else _ollama)(system, prompt, as_json)
-    return _json_from(txt) if as_json else txt
+    """Zincirdeki ilk çalışan servisi kullanır; limit/hata/bozuk JSON'da sıradakine geçer."""
+    chain = [b.strip() for b in (LLM_CREATIVE_BACKEND if creative else LLM_BACKEND).split(",") if b.strip()]
+    errors = []
+    for name in chain:
+        fn, key = _BACKENDS[name]
+        if key and not os.environ.get(key):
+            continue
+        wait = LLM_MIN_INTERVAL - (time.time() - _last_call[0])
+        if wait > 0:
+            time.sleep(wait)
+        _last_call[0] = time.time()
+        try:
+            txt = fn(system, prompt, as_json)
+            return _json_from(txt) if as_json else txt
+        except Exception as e:
+            errors.append(f"{name}: {str(e)[:160]}")
+            log(f"  llm {name} başarısız, sıradaki deneniyor: {str(e)[:120]}")
+    raise RuntimeError("hiçbir LLM servisi yanıt vermedi — " + (" | ".join(errors) or "API anahtarı yok"))
 
 
 def is_quota_error(e):

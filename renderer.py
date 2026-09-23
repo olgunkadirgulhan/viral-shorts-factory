@@ -58,6 +58,50 @@ def tts(text, mp3):
     asyncio.run(go())
 
 
+PIPER_VOICE = os.environ.get("PIPER_VOICE", "tr_TR-fahrettin-medium" if TR else "en_US-ryan-medium")
+PIPER_DIR = os.environ.get("PIPER_VOICE_DIR", os.path.join(os.path.expanduser("~"), ".cache", "piper-voices"))
+
+
+def piper_tts(text, wav):
+    """Yedek ses: Piper — çevrimdışı, ücretsiz, anahtar yok. Ses modeli ilk kullanımda indirilir (~60 MB)."""
+    import sys
+    model = os.path.join(PIPER_DIR, PIPER_VOICE + ".onnx")
+    if not os.path.exists(model):
+        os.makedirs(PIPER_DIR, exist_ok=True)
+        subprocess.run([sys.executable, "-m", "piper.download_voices", PIPER_VOICE, "--data-dir", PIPER_DIR],
+                       check=True, capture_output=True)
+    subprocess.run([sys.executable, "-m", "piper", "-m", model, "-f", str(wav)], input=text, text=True,
+                   encoding="utf-8", check=True, capture_output=True)
+
+
+def voice_beats(beats, tmp):
+    """Tüm beat'ler edge-tts (doğal ses); biri bile başarısızsa video baştan sona Piper ile (ses karışmasın)."""
+    try:
+        out = []
+        for i, b in enumerate(beats):
+            a = tmp / f"a{i}.mp3"
+            for k in range(3):
+                try:
+                    tts(b["say"], a)
+                    if a.exists() and a.stat().st_size > 1000:
+                        break
+                except Exception:
+                    if k == 2:
+                        raise
+            else:
+                raise RuntimeError("edge-tts boş ses döndürdü")
+            out.append(a)
+        return out
+    except Exception as e:
+        log(f"  edge-tts çalışmadı ({str(e)[:100]}) → Piper yedek sesi")
+        out = []
+        for i, b in enumerate(beats):
+            w = tmp / f"p{i}.wav"
+            piper_tts(b["say"], w)
+            out.append(w)
+        return out
+
+
 def duration(path):
     r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
                        capture_output=True, text=True, check=True)
@@ -275,18 +319,8 @@ def render(beats, market_snapshot, out_mp4, ticker=None):
     tmp = OUT / (out_mp4.stem + "_tmp")
     tmp.mkdir(parents=True, exist_ok=True)
     try:
-        durs, auds = [], []
-        for i, b in enumerate(beats):
-            a = tmp / f"a{i}.mp3"
-            for k in range(3):
-                try:
-                    tts(b["say"], a)
-                    break
-                except Exception:
-                    if k == 2:
-                        raise
-            auds.append(a)
-            durs.append(duration(a) + PAD_S)
+        auds = voice_beats(beats, tmp)
+        durs = [duration(a) + PAD_S for a in auds]
         total = sum(durs)
         fc = ";".join(f"[{i + 1}:a]apad=whole_dur={dd:.3f}[a{i}]" for i, dd in enumerate(durs))
         fc += ";" + "".join(f"[a{i}]" for i in range(len(durs))) + f"concat=n={len(durs)}:v=0:a=1[aout]"
