@@ -108,7 +108,8 @@ jobs:
         run: |
           git config user.name "viral-bot"
           git config user.email "viral-bot@users.noreply.github.com"
-          git add state/ data/outliers_*.json data/job_*.json data/market_*.json data/recap_*.json 2>/dev/null || true
+          # whole folders: an unmatched glob would make git add nothing at all (.gitignore filters the rest)
+          git add -A state data
           if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
           git commit -m "state: $(date -u +%F) daily run"
           git pull --rebase --autostash && git push

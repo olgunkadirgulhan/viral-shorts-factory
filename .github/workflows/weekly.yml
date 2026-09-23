@@ -52,7 +52,7 @@ jobs:
         run: |
           git config user.name "viral-bot"
           git config user.email "viral-bot@users.noreply.github.com"
-          git add state/ 2>/dev/null || true
+          git add -A state
           if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
           git commit -m "lessons: $(date -u +%F) weekly review"
           git pull --rebase --autostash && git push
