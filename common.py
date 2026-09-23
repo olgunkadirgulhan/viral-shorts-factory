@@ -125,10 +125,15 @@ def _anthropic(system, prompt, as_json):
     return "".join(b.text for b in resp.content if b.type == "text")
 
 
+_gemini_ok = [0]
+
+
 def _gemini(system, prompt, as_json):
     """Google Gemini API, ücretsiz katman (aistudio.google.com anahtarı, kart gerekmez)."""
     last = None
-    for model in GEMINI_MODELS:                      # yoğunluk / limit / zaman aşımında sıradaki model
+    start = _gemini_ok[0]                            # bu çalışmada son çalışan modelden başla (yavaş failover bir kez)
+    for idx in range(start, len(GEMINI_MODELS)):     # yoğunluk / limit / zaman aşımında sıradaki model
+        model = GEMINI_MODELS[idx]
         try:
             r = requests.post(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{model.strip()}:generateContent",
@@ -145,10 +150,14 @@ def _gemini(system, prompt, as_json):
             parts = cands[0].get("content", {}).get("parts", []) if cands else []
             txt = "".join(p.get("text", "") for p in parts if not p.get("thought"))
             if txt.strip():
+                if idx != _gemini_ok[0]:
+                    log(f"  gemini modeli: {model}")
+                _gemini_ok[0] = idx
                 return txt
             last = f"{model}: boş yanıt ({cands[0].get('finishReason') if cands else 'no candidates'})"
         else:
             last = f"{model}: {r.status_code} {r.text[:200]}"
+    _gemini_ok[0] = 0                                # hepsi düştüyse sonraki çağrıda baştan dene
     raise RuntimeError(f"gemini: {last}")
 
 
