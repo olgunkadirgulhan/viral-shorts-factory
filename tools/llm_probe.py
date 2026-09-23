@@ -11,8 +11,24 @@ SYSTEM = "You write short, factual stock-market hooks. Reply with JSON only."
 PROMPT = 'Return {"hook": "<one 12-word hook about Nvidia moving 2.3% today, addressing the viewer as you>"}'
 
 
+def gemini_models():
+    """Anahtarın erişebildiği, metin üretebilen Gemini modelleri (ad değişikliklerini görmek için)."""
+    import requests
+    r = requests.get("https://generativelanguage.googleapis.com/v1beta/models",
+                     params={"key": os.environ["GEMINI_API_KEY"], "pageSize": 200}, timeout=30)
+    if not r.ok:
+        print(f"model listesi alınamadı: {r.status_code} {r.text[:200]}")
+        return []
+    names = [m["name"].split("/")[-1] for m in r.json().get("models", [])
+             if "generateContent" in m.get("supportedGenerationMethods", [])]
+    print("Gemini erişilebilir modeller:", ", ".join(names))
+    return names
+
+
 def main():
     ok = False
+    if os.environ.get("GEMINI_API_KEY"):
+        gemini_models()
     for name, (fn, key) in common._BACKENDS.items():
         if name == "ollama":
             continue
