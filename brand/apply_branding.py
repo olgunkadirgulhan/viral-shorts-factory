@@ -33,6 +33,27 @@ KEYWORDS = ["why stocks moved", "stock market today", "stock market news", "stoc
             "stock market shorts"]
 
 
+def set_watermark(channel_id):
+    """watermarks.set — doğrudan HTTP (httplib2, bu uç noktanın boş gzip yanıtını açarken çöküyor)."""
+    import json, requests
+    creds = yt_creds()
+    if not creds.valid:
+        from google.auth.transport.requests import Request
+        creds.refresh(Request())
+    meta = {"timing": {"type": "offsetFromStart", "offsetMs": 0},
+            "position": {"type": "corner", "cornerPosition": "topRight"}}
+    img = (HERE / "watermark_150x150.png").read_bytes()
+    boundary = "wsmboundary"
+    body = (f"--{boundary}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{json.dumps(meta)}\r\n"
+            f"--{boundary}\r\nContent-Type: image/png\r\n\r\n").encode() + img + f"\r\n--{boundary}--".encode()
+    r = requests.post("https://www.googleapis.com/upload/youtube/v3/watermarks/set",
+                      params={"channelId": channel_id, "uploadType": "multipart"}, data=body, timeout=60,
+                      headers={"Authorization": f"Bearer {creds.token}",
+                               "Content-Type": f"multipart/related; boundary={boundary}"})
+    if r.status_code >= 300:
+        raise RuntimeError(f"{r.status_code} {r.text[:200]}")
+
+
 def main():
     from googleapiclient.discovery import build
     from googleapiclient.http import MediaFileUpload
@@ -72,10 +93,7 @@ def main():
 
     # 3) filigran (uzun videolarda görünür; Shorts'ta görünmez)
     try:
-        yt.watermarks().set(channelId=ch["id"],
-                            body={"timing": {"type": "offsetFromStart", "offsetMs": 0},
-                                  "position": {"type": "corner", "cornerPosition": "topRight"}},
-                            media_body=MediaFileUpload(str(HERE / "watermark_150x150.png"), mimetype="image/png")).execute()
+        set_watermark(ch["id"])
         print("✓ filigran")
     except Exception as e:
         print(f"• filigran atlandı ({str(e)[:120]}) — Studio'dan elle yüklenebilir")

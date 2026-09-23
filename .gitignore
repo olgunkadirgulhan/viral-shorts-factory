@@ -13,3 +13,4 @@ data/market_test.json
 __pycache__/
 .claude/
 brand/_preview_*
+brand/*.mp4

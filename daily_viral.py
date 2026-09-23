@@ -314,6 +314,25 @@ def upload_youtube(mp4, pkg, yt, publish_at):
     return vid
 
 
+def add_to_playlist(video_id, ticker=None, key=None):
+    """state/playlists.json (brand/setup_playlists.py) → videoyu konusunun listesine ekle. Hata yüklemeyi bozmaz."""
+    f = STATE / "playlists.json"
+    if DRY or not f.exists():
+        return
+    pl = json.loads(f.read_text(encoding="utf-8"))
+    pid = pl["by_key"].get(key) if key else pl["by_ticker"].get(ticker)
+    if not pid:
+        return
+    try:
+        from googleapiclient.discovery import build
+        build("youtube", "v3", credentials=yt_creds(), cache_discovery=False).playlistItems().insert(
+            part="snippet", body={"snippet": {"playlistId": pid,
+                                              "resourceId": {"kind": "youtube#video", "videoId": video_id}}}).execute()
+        log(f"  listeye eklendi: {pid}")
+    except Exception as e:
+        log(f"  listeye eklenemedi: {str(e)[:150]}")
+
+
 # ---------------- 11. HAFIZA (ai-brain) ----------------
 def brain_save(job):
     slug = re.sub(r"[^a-z0-9]+", "-", job["package"]["title"].lower())[:40].strip("-") or "video"
@@ -365,7 +384,9 @@ def fallback_recap(snap, i, publish_at):
         title = f"{m['name']} {renderer.pct_str(m['change_pct'], 2)} · Market Recap {datetime.date.today():%b %d}"
         yt = {"description": f"Today's market recap: {names}.\n{DISCLAIMER}. Data may be delayed.\n#shorts",
               "tags": ["stock market", "market recap", "bitcoin", "crypto", "stocks", "investing", "nasdaq", "gold"]}
-    return upload_youtube(mp4, {"title": title}, yt, publish_at)
+    vid = upload_youtube(mp4, {"title": title}, yt, publish_at)
+    add_to_playlist(vid, key="recap")
+    return vid
 
 
 def main():
@@ -406,6 +427,7 @@ def main():
                 mp4 = retry(render, job, i, snap)
                 job["video_id"] = retry(upload_youtube, mp4, job["package"], job["platforms"]["youtube"], publish_at)
                 job["publish_at"] = publish_at
+                add_to_playlist(job["video_id"], ticker=job["idea"].get("ticker"))
                 (DATA / f"job_{TODAY}_{i}.json").write_text(json.dumps(job, ensure_ascii=False, indent=1), encoding="utf-8")
                 brain_save(job)
                 report.append(f"✅ [{goal}] {job['package']['title']}\n   hook {job['hook']['verdict']} · title "

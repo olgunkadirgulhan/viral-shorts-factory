@@ -1,0 +1,25 @@
+{
+ "by_key": {
+  "bigtech": "PLZ9_9j16qfv4",
+  "indexes": "PLCy26RWFYwzs",
+  "macro": "PLKcZTmnGVz1c",
+  "recap": "PLIF-Xx0AQG2Y"
+ },
+ "by_ticker": {
+  "NVDA": "PLZ9_9j16qfv4",
+  "AAPL": "PLZ9_9j16qfv4",
+  "MSFT": "PLZ9_9j16qfv4",
+  "TSLA": "PLZ9_9j16qfv4",
+  "AMZN": "PLZ9_9j16qfv4",
+  "META": "PLZ9_9j16qfv4",
+  "GOOGL": "PLZ9_9j16qfv4",
+  "^GSPC": "PLCy26RWFYwzs",
+  "^IXIC": "PLCy26RWFYwzs",
+  "^DJI": "PLCy26RWFYwzs",
+  "^VIX": "PLCy26RWFYwzs",
+  "GC=F": "PLKcZTmnGVz1c",
+  "SI=F": "PLKcZTmnGVz1c",
+  "CL=F": "PLKcZTmnGVz1c",
+  "DX-Y.NYB": "PLKcZTmnGVz1c"
+ }
+}
