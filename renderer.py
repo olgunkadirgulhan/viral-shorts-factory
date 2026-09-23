@@ -32,7 +32,7 @@ PAD_S = 0.3                      # beat sonu nefes payı
 
 # Shorts arayüzü alt ~%20'yi ve sağ kenarı kapatır; her şey bu kutunun içinde kalır
 VIS = (80, 250, 1000, 980)       # grafik / sayaç / kart alanı
-HEAD_Y, CAP_Y, DISC_Y = 1030, 1330, 1500
+HEAD_Y, CAP_Y, DISC_Y = 1030, 1330, 1530          # 3 satır altyazı uyarıya değmez; 1536 altı Shorts UI
 
 _fonts = {}
 
