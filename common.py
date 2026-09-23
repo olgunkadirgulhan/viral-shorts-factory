@@ -34,7 +34,9 @@ CONTENT_LANG = os.environ.get("CONTENT_LANG", "en")
 # gemini (ücretsiz) → groq (ücretsiz) → anthropic (ücretli, opsiyonel) → ollama (yerel GPU)
 LLM_BACKEND = os.environ.get("LLM_BACKEND", "gemini,groq,anthropic")
 LLM_CREATIVE_BACKEND = os.environ.get("LLM_CREATIVE_BACKEND", LLM_BACKEND)  # hook + script adımı (§8.7)
-GEMINI_MODELS = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash,gemini-2.5-flash-lite").split(",")
+# Yoğunluk (503) / zaman aşımında sıradaki model. Adlar 2026-09-23'te tools/llm_probe.py ile doğrulandı.
+GEMINI_MODELS = os.environ.get("GEMINI_MODEL",
+                               "gemini-flash-latest,gemini-3.5-flash,gemini-flash-lite-latest").split(",")
 GROQ_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 LLM_MIN_INTERVAL = float(os.environ.get("LLM_MIN_INTERVAL", "7"))   # ücretsiz katman dakika limiti için
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/generate")
@@ -126,13 +128,18 @@ def _anthropic(system, prompt, as_json):
 def _gemini(system, prompt, as_json):
     """Google Gemini API, ücretsiz katman (aistudio.google.com anahtarı, kart gerekmez)."""
     last = None
-    for model in GEMINI_MODELS:                      # Flash limiti dolarsa Flash-Lite
-        r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{model.strip()}:generateContent",
-                          params={"key": os.environ["GEMINI_API_KEY"]}, timeout=300, json={
-                              "systemInstruction": {"parts": [{"text": system}]},
-                              "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-                              "generationConfig": {"temperature": 0.8, "maxOutputTokens": 8192,
-                                                   **({"responseMimeType": "application/json"} if as_json else {})}})
+    for model in GEMINI_MODELS:                      # yoğunluk / limit / zaman aşımında sıradaki model
+        try:
+            r = requests.post(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{model.strip()}:generateContent",
+                params={"key": os.environ["GEMINI_API_KEY"]}, timeout=(10, 75), json={
+                    "systemInstruction": {"parts": [{"text": system}]},
+                    "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+                    "generationConfig": {"temperature": 0.8, "maxOutputTokens": 8192,
+                                         **({"responseMimeType": "application/json"} if as_json else {})}})
+        except requests.RequestException as e:
+            last = f"{model}: {type(e).__name__}"
+            continue
         if r.ok:
             cands = r.json().get("candidates") or []
             parts = cands[0].get("content", {}).get("parts", []) if cands else []
