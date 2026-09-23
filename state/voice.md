@@ -4,6 +4,8 @@
 ## What this channel covers
 US stocks, big tech (Nvidia, Apple, Microsoft, Amazon, Meta, Google, Tesla), earnings, the Fed / rates / inflation,
 gold, oil, the dollar, and everyday money decisions (saving, index funds, how markets affect your wallet).
+Channel name is "Why Stocks Moved": every video explains a real move and its cause. Gold, oil, the dollar and the Fed
+are always tied back to what they mean for stocks or your portfolio.
 NEVER crypto: no Bitcoin, Ethereum, altcoins or crypto news. A sister channel covers crypto; overlap splits the audience.
 If a competitor outlier is about crypto, keep only its STRUCTURE and apply it to a stock/macro topic.
 
