@@ -195,26 +195,70 @@ JSON: {{"ideas":[{{"idea":"...","goal":"SHARE|SAVE|FOLLOW","emotion":"...","form
 
 
 # ---------------- 6. HOOK (viral-hook-writer + hook-mining remix) → hookscore kapısı ----------------
+HOOK_RUBRIC = """HOW EVERY HOOK IS SCORED (hookscore.py; each property 0-100, verdict = 60% mean + 40% the WEAKEST
+property, so a single weak property sinks the hook; the gate is {min}):
+- SPECIFICITY: a concrete figure (12%, $4,350, 5 days) and a named company/asset; no hype adjectives
+  (amazing, insane, huge, massive, secret, ultimate, best, crazy).
+- ADDRESS: "you"/"your" inside the first six words, ideally twice in the line.
+- STAKES: name the cost with words like lose, lost, cost, waste, risk, before, stop, never, broke, fail.
+- CURIOSITY: open a gap with why / how / what / which / until / but / nobody / almost; a closing "?" helps;
+  never resolve it (no "because", "so that", "which means").
+- BREVITY: 9 to 24 spoken words.
+Aim for EVERY property >= 60. A hook that is strong on four and dead on one fails."""
+
+TITLE_RUBRIC = """HOW EVERY TITLE+COVER PAIR IS CHECKED (title.py; ANY issue fails the gate, score must be >= {min}):
+- length: the title is AT MOST 40 characters INCLUDING spaces (count them; the mobile feed cuts at 40).
+- no-number: the title contains a digit (a %, a price, a date).
+- front-load: the first three words are not all filler (the, a, how, why, what, this, your...).
+- shouting: at most two ALL-CAPS words.
+- vague: none of amazing, incredible, insane, crazy, huge, massive, ultimate, best, powerful, secret, epic, perfect.
+- duplicate: the cover text shares NO meaningful word with the title (the cover says what the title does not).
+- thumb-length: cover text is 1-3 words."""
+
+
+def _hook_feedback(scored):
+    lines = []
+    for r in scored[:3]:
+        weak = min(r["properties"], key=r["properties"].get)
+        props = ", ".join(f"{k} {v}" for k, v in r["properties"].items())
+        lines.append(f'- "{r["hook"]}" → {r["verdict"]} ({props}); weakest {weak}: {hs_fix(weak)}')
+    return "\n".join(lines)
+
+
+def hs_fix(prop):
+    from scoring import hs
+    return hs.FIX.get(prop, "")
+
+
 def best_hook(idea, mined):
     buckets = {k: [h["hook"] for h in v[:3]] for k, v in mined.get("buckets", {}).items()}
-    for _ in range(MAX_TRIES):
+    feedback, best = "", None
+    for attempt in range(MAX_TRIES):
+        retry_note = (f"\nYOUR PREVIOUS ATTEMPT'S BEST HOOKS DID NOT PASS. Scores:\n{feedback}\n"
+                      "Rewrite them: fix each one's weakest property while keeping what already scored well.\n"
+                      if feedback else "")
         hooks = llm(skill("oot", "viral-hook-writer") + "\n\n" + skill("oot", "hook-mining") + "\n\n"
                     + skill("yt", "yt-script") + "\n\n" + context(),
                     f"""Idea: {json.dumps(idea, ensure_ascii=False)}
 Proven hook skeletons in our niche (by pattern): {json.dumps(buckets, ensure_ascii=False)}
 Power words earning their keep: {mined.get('power_word_frequency', [])[:15]}
-Write 10 hooks (9-16 words, spoken). At least 5 are REMIXES: keep a proven skeleton, swap ONLY power words,
-never verbatim. Address the viewer directly, name what it costs them, leave a gap open. Use real numbers
-from the idea only. Each has a 3-5 word on-screen version.
+{HOOK_RUBRIC.format(min=HOOK_MIN)}
+{retry_note}
+Write 10 hooks (spoken). At least 5 are REMIXES: keep a proven skeleton, swap ONLY power words, never
+verbatim. Use real numbers from the idea only. Each has a 3-5 word on-screen version.
 JSON: {{"hooks":[{{"line":"...","on_screen":"...","pattern":"..."}}]}}""", creative=True).get("hooks", [])
         hooks = [h for h in hooks if isinstance(h, dict) and h.get("line")]
         if not hooks:
             continue
         by_line = {h["line"].replace("\n", " ").strip(): h for h in hooks}
-        top = score_hooks(list(by_line))[0]
-        log(f"  hook {top['verdict']}: {top['hook'][:70]}")
+        scored = score_hooks(list(by_line))
+        top = scored[0]
+        log(f"  hook {top['verdict']} (deneme {attempt + 1}): {top['hook'][:70]}")
+        if not best or top["verdict"] > best["verdict"]:
+            best = {**top, "on_screen": by_line.get(top["hook"], {}).get("on_screen", "")}
         if top["verdict"] >= HOOK_MIN:
-            return {**top, "on_screen": by_line.get(top["hook"], {}).get("on_screen", "")}
+            return best
+        feedback = _hook_feedback(scored)
     return None
 
 
@@ -247,24 +291,31 @@ JSON: {{"beats":[{{"say":"...","osd":"...","emphasis":"...","visual":"chart|coun
 
 # ---------------- 9. PAKET (yt-package + cover-thumbnail-brief) → title.py kapısı ----------------
 def package(idea, script):
-    for _ in range(MAX_TRIES):
+    feedback = ""
+    for attempt in range(MAX_TRIES):
+        retry_note = (f"\nYOUR PREVIOUS PAIRS FAILED THE CHECK:\n{feedback}\nFix exactly those issues.\n"
+                      if feedback else "")
         cand = llm(skill("yt", "yt-package") + "\n\n" + skill("oot", "cover-thumbnail-brief") + "\n\n" + context(),
                    f"""Idea: {idea['idea']}  Hook: {script['beats'][0]['say']}
-TEN title+cover pairs. Title <=40 characters (hard limit: the mobile feed cuts at 40), carries a number/name/date from the idea,
-subject in the first three words, at most one ALL-CAPS word, no hype adjectives.
-Cover text max 3 words, different words from title, legible at 150px, clear of top 12% / bottom 20%.
+{TITLE_RUBRIC.format(min=TITLE_MIN)}
+{retry_note}
+TEN title+cover pairs. The title carries a number/name/date from the idea, subject in the first three words.
+Cover text is legible at 150px and clear of the top 12% / bottom 20%.
 JSON: {{"pairs":[{{"title":"...","thumb":"...","visual_brief":"..."}}]}}""").get("pairs", [])
-        best = None
+        results = []
         for c in cand:
-            if not isinstance(c, dict) or not c.get("title"):
-                continue
-            r = check_title(c["title"], c.get("thumb"))
-            if not best or r["score"] > best["score"]:
-                best = {**r, "thumb": c.get("thumb", ""), "visual_brief": c.get("visual_brief", "")}
-        if best:
-            log(f"  title {best['score']}: {best['title']}  issues={[i[0] for i in best['issues']]}")
-        if best and best["score"] >= TITLE_MIN and not best["issues"]:
+            if isinstance(c, dict) and c.get("title"):
+                r = check_title(c["title"], c.get("thumb"))
+                results.append({**r, "thumb": c.get("thumb", ""), "visual_brief": c.get("visual_brief", "")})
+        if not results:
+            continue
+        results.sort(key=lambda r: (bool(r["issues"]), -r["score"]))   # önce sorunsuz olanlar
+        best = results[0]
+        log(f"  title {best['score']} (deneme {attempt + 1}): {best['title']}  issues={[i[0] for i in best['issues']]}")
+        if best["score"] >= TITLE_MIN and not best["issues"]:
             return best
+        feedback = "\n".join(f'- "{r["title"]}" ({r["chars"]} chars) + cover "{r["thumb"]}": '
+                             + "; ".join(f"{k}: {m}" for k, m in r["issues"]) for r in results[:3])
     return None
 
 
