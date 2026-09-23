@@ -1,0 +1,148 @@
+{
+ "idea": {
+  "idea": "How Nvidia's 7.78% weekly climb is rewriting big tech market dominance",
+  "goal": "SHARE",
+  "emotion": "indignation and surprise",
+  "formula": "The Question",
+  "ticker": "NVDA",
+  "structure_from": "https://www.youtube.com/shorts/Uou5HxG1msM",
+  "payoff_withheld_until_end": "The specific volume threshold that signals institutional buying is withheld until the climax.",
+  "data_points": [
+   "Nvidia price: $227.38",
+   "Change pct: 2.3%",
+   "5d pct: 7.78%"
+  ]
+ },
+ "hook": {
+  "hook": "Why you are losing out on Nvidia's 7.78% weekly climb before it stops",
+  "properties": {
+   "SPECIFICITY": 62,
+   "ADDRESS": 76,
+   "STAKES": 62,
+   "CURIOSITY": 58,
+   "BREVITY": 100
+  },
+  "verdict": 66,
+  "band": "WORKABLE",
+  "formula": "The Statistic",
+  "on_screen": "Why you are losing out"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "Why you are losing out on Nvidia's 7.78% weekly climb before it stops",
+    "osd": "Nvidia's **7.78%** weekly climb",
+    "emphasis": "7.78%",
+    "visual": "chart",
+    "ticker": "NVDA"
+   },
+   {
+    "say": "It is not retail hype anymore. Wall Street is quietly shifting billions back into big tech dominance.",
+    "osd": "Wall Street is **quietly** shifting billions",
+    "emphasis": "quietly",
+    "visual": "counter",
+    "ticker": "NVDA"
+   },
+   {
+    "say": "When institutional volume spikes like this, everyday portfolios get completely left behind.",
+    "osd": "Portfolios get **left** behind",
+    "emphasis": "left",
+    "visual": "compare",
+    "ticker": "NVDA"
+   },
+   {
+    "say": "While Nvidia hit 227.38 dollars, S&P 500 lagged behind at 7764.7 points.",
+    "osd": "S&P 500 **lagged** behind",
+    "emphasis": "lagged",
+    "visual": "list",
+    "ticker": "^GSPC"
+   },
+   {
+    "say": "Not financial advice, but watch the heavy institutional volume threshold closely today.",
+    "osd": "Watch the volume **threshold** closely",
+    "emphasis": "threshold",
+    "visual": "text",
+    "ticker": "NVDA"
+   }
+  ],
+  "word_count": 66,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Nvidia 7.78% weekly climb explained",
+  "chars": 35,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "35 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (7.78%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "MARKET SHOCK",
+  "visual_brief": "Split screen showing Nvidia dominance metrics vs S&P 500. Subject with arms crossed. Bold text top left, high contrast dark blue and neon green palette."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "Nvidia 7.78% weekly climb explained",
+    "Why is Nvidia stock rising today",
+    "Nvidia big tech market dominance"
+   ],
+   "description": "Nvidia's 7.78% weekly climb is rewriting big tech market dominance as Wall Street quietly shifts billions back into the sector. Find out why institutional volume is surging and what it means for your portfolio.\n\nNot financial advice. \n\n#Shorts #Nvidia #NVDA #Stocks #WallStreet #BigTech",
+   "tags": [
+    "Nvidia",
+    "NVDA",
+    "Nvidia stock",
+    "Nvidia 7.78",
+    "big tech",
+    "Wall Street",
+    "stock market",
+    "institutional volume",
+    "SP 500",
+    "portfolio",
+    "investing",
+    "stocks to watch",
+    "market dominance",
+    "earnings",
+    "macro"
+   ],
+   "query_test_pass": true
+  }
+ },
+ "teardown": {
+  "hook": "Why Trump merchandise sales are suddenly taking a massive hit.",
+  "hook_why": "Starts with a high-curiosity political economy question that taps into current news cycles, creating an immediate information gap for viewers.",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "Why Trump merchandise sales are suddenly taking a massive hit.",
+    "shown": "Moving chart of retail spending or political campaign merchandise revenue with a bold on-screen title."
+   },
+   {
+    "t": "3-15s",
+    "said": "It's not about politics. It's about consumer fatigue and shifting spending habits toward essentials as inflation bites.",
+    "shown": "Zoomed-in stock chart or economic indicator graph with highlight callouts on rising costs."
+   },
+   {
+    "t": "15-25s",
+    "said": "When discretionary budgets tighten, novelty items are the first to get cut from everyday portfolios.",
+    "shown": "Split screen comparing luxury/novelty retail indexes versus basic consumer staples."
+   },
+   {
+    "t": "25-35s",
+    "said": "Not financial advice, but watch consumer discretionary stocks closely this quarter.",
+    "shown": "Clean portfolio graphic with text overlay and single clean CTA to follow for daily stock updates."
+   }
+  ],
+  "pacing": "Fast cuts every 3 to 4 seconds, maintaining high energy with visual transitions synced to the beat.",
+  "visual_technique": "Data-driven vertical layout featuring real-time moving stock charts, highlighted callout text, and clean minimal overlays.",
+  "reusable_moves": [
+   "Opening with a provocative 'Why X is happening' question backed by a moving chart at frame 0",
+   "Translating political or cultural trends directly into their financial impact on consumer behavior"
+  ],
+  "remake_plan": "Adapt the 'The Question' formula to analyze how recent political shifts impact big tech retail spending or consumer discretionary stocks without taking political sides."
+ },
+ "video_id": "DRYRUN",
+ "publish_at": "2026-09-23T16:30:00Z"
+}
