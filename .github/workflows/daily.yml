@@ -74,6 +74,9 @@ jobs:
         run: |
           ARGS="--videos ${{ github.event_name == 'schedule' && (vars.VIDEOS_PER_DAY || '2') || inputs.videos }}"
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          # Until the YouTube API audit is approved, API uploads get locked private forever.
+          # Scheduled runs only render (videos come as artifacts) until PUBLISH_MODE=live is set.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ vars.PUBLISH_MODE }}" != "live" ]; then ARGS="$ARGS --dry-run"; fi
           if [ "${{ inputs.fallback_only }}" = "true" ]; then ARGS="$ARGS --fallback-only"; fi
           python daily_viral.py $ARGS
 

@@ -1,4 +1,23 @@
-# Competitor channels in your niche: one Shorts URL per line (10-20 channels, 4+ videos each).
-# swipe.py scores every video against ITS OWN channel median; channels with <4 Shorts are skipped.
-# Accepted forms: https://www.youtube.com/@handle/shorts  or  https://www.youtube.com/channel/UC.../shorts
-# While this list is empty the system still runs, but uploads only the safe format (market recap).
+# Competitor channels: English stock / macro / money Shorts. One URL per line.
+# Each verified 2026-09-23 via the YouTube Data API: 9+ Shorts in the last 30 uploads.
+# swipe.py scores every video against ITS OWN channel median, so big and small channels mix fine.
+
+# creators
+https://www.youtube.com/@humphrey/shorts
+https://www.youtube.com/@GrahamStephan/shorts
+https://www.youtube.com/@AndreiJikh/shorts
+https://www.youtube.com/@FinancialEducation/shorts
+https://www.youtube.com/@thebaldtraderr/shorts
+https://www.youtube.com/@rossgivens/shorts
+https://www.youtube.com/@MeetKevin/shorts
+https://www.youtube.com/@marketbeatmedia/shorts
+https://www.youtube.com/@fundstrat_direct/shorts
+https://www.youtube.com/@profgmarkets/shorts
+https://www.youtube.com/@TheCompoundNews/shorts
+
+# newsrooms
+https://www.youtube.com/@wsj/shorts
+https://www.youtube.com/@CNBCMakeIt/shorts
+https://www.youtube.com/@cnbctelevision/shorts
+https://www.youtube.com/@YahooFinance/shorts
+https://www.youtube.com/@forbes/shorts

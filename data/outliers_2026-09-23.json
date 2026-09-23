@@ -1,0 +1,329 @@
+{
+ "outliers": [
+  {
+   "channel": "The Wall Street Journal",
+   "title": "Why Trump Merchandise Sales Are Taking a Hit",
+   "views": 1483773,
+   "median": 44709,
+   "multiple": 33.19,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/VaWg8b5oN6k"
+  },
+  {
+   "channel": "CNBC Make It",
+   "title": "How Costco keeps gas so cheap",
+   "views": 92124,
+   "median": 5545,
+   "multiple": 16.61,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/6f5rmIYBERY"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Zuckerberg, Musk And Huang Reportedly Convinced Trump To Block AI Regulator",
+   "views": 108961,
+   "median": 7187,
+   "multiple": 15.16,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/go7tG6VAhIY"
+  },
+  {
+   "channel": "The Compound",
+   "title": "Josh Brown on Apple's Foldable iPhone",
+   "views": 63468,
+   "median": 4198,
+   "multiple": 15.12,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/Uou5HxG1msM"
+  },
+  {
+   "channel": "Forbes",
+   "title": "White House Launches 'Trump TV' After President's Press Ban",
+   "views": 100473,
+   "median": 7187,
+   "multiple": 13.98,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/QTv2DDx7IZI"
+  },
+  {
+   "channel": "MarketBeat",
+   "title": "Pelosi Bought What!? 5 Massive Congressional Stock Trades You Need to See",
+   "views": 241381,
+   "median": 19056,
+   "multiple": 12.67,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4vP5tjYd3n4"
+  },
+  {
+   "channel": "Forbes",
+   "title": "White House Launches 'Trump TV' After President's Press Ban",
+   "views": 85981,
+   "median": 7187,
+   "multiple": 11.96,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/iP12bgz5dB0"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Buying A House In Cash?!",
+   "views": 273516,
+   "median": 29729,
+   "multiple": 9.2,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/OiSZT6xESdA"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "I Tried Apple’s First Folding iPhone. Here Are 3 Takeaways.",
+   "views": 397999,
+   "median": 44709,
+   "multiple": 8.9,
+   "formula": "The List",
+   "url": "https://www.youtube.com/shorts/aEuswJGYQ4U"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "China Is Behind High Gas Prices",
+   "views": 274218,
+   "median": 36432,
+   "multiple": 7.53,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/w3J7yRovEF0"
+  },
+  {
+   "channel": "Yahoo Finance",
+   "title": "Elon Musk's mom won't be going to Mars anytime soon. 😂 🚀",
+   "views": 16129,
+   "median": 2254,
+   "multiple": 7.16,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/JNrtM3qjO94"
+  },
+  {
+   "channel": "Yahoo Finance",
+   "title": "Trump renames AI to SI",
+   "views": 15572,
+   "median": 2254,
+   "multiple": 6.91,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/DwUfYTcCXfg"
+  },
+  {
+   "channel": "Yahoo Finance",
+   "title": "Bessent says the US wants a \"shared vision\" on AI with China. 🇨🇳",
+   "views": 15214,
+   "median": 2254,
+   "multiple": 6.75,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/nV0kCcSU-dc"
+  },
+  {
+   "channel": "Yahoo Finance",
+   "title": "Maye Musk reveals Elon Elon Musk had just recovered from malaria when ideating SpaceX and Tesla.",
+   "views": 14519,
+   "median": 2254,
+   "multiple": 6.44,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/3taDfcByB5Q"
+  },
+  {
+   "channel": "Meet Kevin",
+   "title": "Grant Cardone Sued Me AND It Instantly Backfired 💀",
+   "views": 30521,
+   "median": 5078,
+   "multiple": 6.01,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/AlMDZy4uSSQ"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Everything Leads To a Financial Repression",
+   "views": 187620,
+   "median": 36432,
+   "multiple": 5.15,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/7VvnkGr0aV0"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Scott Galloway reacts to Trump's pledge to give every U.S. adult $5,000",
+   "views": 82075,
+   "median": 17886,
+   "multiple": 4.59,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/eVdXG_aG3kw"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "You Have 5 Years Left To Get Rich",
+   "views": 160439,
+   "median": 36432,
+   "multiple": 4.4,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/cFugga5J1t0"
+  },
+  {
+   "channel": "The Compound",
+   "title": "The Tech Bull Market Is Just Getting Started",
+   "views": 18289,
+   "median": 4198,
+   "multiple": 4.36,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/hkG6Qizd5oM"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Trump says artificial intelligence is now 'officially called super intelligence'",
+   "views": 11472,
+   "median": 2770,
+   "multiple": 4.14,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/FBEdIm-liZg"
+  },
+  {
+   "channel": "Meet Kevin",
+   "title": "TRUMP JUST BAILED OUT CRYPTO & ROBINHOOD",
+   "views": 20585,
+   "median": 5078,
+   "multiple": 4.05,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/8_ST3Ow0dmY"
+  },
+  {
+   "channel": "Yahoo Finance",
+   "title": "TV networks take the audio from Trump's White House",
+   "views": 9095,
+   "median": 2254,
+   "multiple": 4.04,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/iDQUWNRvQcY"
+  },
+  {
+   "channel": "Meet Kevin",
+   "title": "How Markiplier Turned $9M into $15M with GOPRO Stock",
+   "views": 20248,
+   "median": 5078,
+   "multiple": 3.99,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/zKXAcFQGe7s"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "How Twinkies Became a $5 Billion Problem",
+   "views": 174608,
+   "median": 44709,
+   "multiple": 3.91,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/QOiWrD5ZIW4"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The Bond Market Is Out Of Control",
+   "views": 129387,
+   "median": 36432,
+   "multiple": 3.55,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/N8tfYLiyH9k"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Trump says U.S. officials held 3-hour meeting with Iranians",
+   "views": 9828,
+   "median": 2770,
+   "multiple": 3.55,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/pvLuSyCMfhQ"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "The Federal Reserve Just Raised Interest Rates For The First Time Since 2023",
+   "views": 295385,
+   "median": 83754,
+   "multiple": 3.53,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/2gOubOLfU8E"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "How Justin Waller Has A 6-Pack 🤣",
+   "views": 104004,
+   "median": 29729,
+   "multiple": 3.5,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/vFiKY8Xz3w4"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The AI Bubble Is Getting Bigger",
+   "views": 123554,
+   "median": 36432,
+   "multiple": 3.39,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/90f8hvkKoUI"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Security Researchers Hacked Into OpenAI Using Anthropic’s Claude",
+   "views": 24128,
+   "median": 7187,
+   "multiple": 3.36,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/Dwdlphmq4u0"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The U.S. Is Getting Betrayed (And It Plans To Fight Back)",
+   "views": 121038,
+   "median": 36432,
+   "multiple": 3.32,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/800SfOPy--k"
+  },
+  {
+   "channel": "Fundstrat",
+   "title": "Tom Lee explains why Nvidia still isn't expensive right now.",
+   "views": 161955,
+   "median": 49371,
+   "multiple": 3.28,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/26qXd_8mYHs"
+  },
+  {
+   "channel": "The Compound",
+   "title": "Why the Bears Keep Missing This Market",
+   "views": 13645,
+   "median": 4198,
+   "multiple": 3.25,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/NfzKHHFN1OM"
+  },
+  {
+   "channel": "Ross Givens",
+   "title": "AI Is About to Become FREE… Here’s Where the Money Goes NEXT",
+   "views": 45553,
+   "median": 14177,
+   "multiple": 3.21,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/a5UKzHRbD1A"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Why Oil Prices Are Exploding",
+   "views": 114688,
+   "median": 36432,
+   "multiple": 3.15,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/46VGb1SY7I0"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Americans Don't Have Savings Anymore",
+   "views": 112083,
+   "median": 36432,
+   "multiple": 3.08,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4Y1qrFjW9sU"
+  }
+ ],
+ "skipped_thin_channels": []
+}
