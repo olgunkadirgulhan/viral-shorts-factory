@@ -2,15 +2,15 @@ name: Daily viral short
 
 on:
   schedule:
-    # 10:00 UTC = 06:00 New York. Slots publish later (12:30 / 19:00 ET), so a late cron is harmless.
-    - cron: "0 10 * * *"
+    # 09:00 UTC = 05:00 New York, after the 07:00 UTC quota reset. First slot is 07:00 ET: ~2h for 6 videos.
+    - cron: "0 9 * * *"
   workflow_dispatch:
     inputs:
       videos:
         description: How many videos (slots)
         type: choice
         default: "1"
-        options: ["1", "2", "3"]
+        options: ["1", "2", "3", "4", "5", "6"]
       dry_run:
         description: Render but do not upload
         type: boolean
@@ -30,7 +30,7 @@ permissions:
 jobs:
   produce:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 150
     env:
       CONTENT_LANG: ${{ vars.CONTENT_LANG || 'en' }}
       LLM_BACKEND: anthropic
@@ -42,7 +42,7 @@ jobs:
       YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
       YOUTUBE_PRIVACY: ${{ vars.YOUTUBE_PRIVACY || 'unlisted' }}
       PUBLISH_TZ: ${{ vars.PUBLISH_TZ || 'America/New_York' }}
-      SLOTS: ${{ vars.SLOTS || '12:30=SHARE,19:00=SAVE,17:00=FOLLOW' }}
+      SLOTS: ${{ vars.SLOTS || '07:00=SAVE,09:30=SHARE,12:30=SHARE,15:00=FOLLOW,17:30=SAVE,20:00=SHARE' }}
       MARKET_TICKERS: ${{ vars.MARKET_TICKERS || '^GSPC,^IXIC,^DJI,GC=F,CL=F,DX-Y.NYB,NVDA,AAPL,MSFT,TSLA,AMZN,META' }}
       CHANNEL_NAME: ${{ vars.CHANNEL_NAME }}
       TTS_VOICE: ${{ vars.TTS_VOICE || 'en-US-AndrewMultilingualNeural' }}

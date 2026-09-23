@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 HERE = pathlib.Path(__file__).resolve().parent
 NAME_A, NAME_B = "WHY", "STOCKS MOVED"
 TAGLINE = "One real market move. Explained in 40 seconds."
-SCHEDULE = "NEW SHORTS DAILY  ·  12:30 PM & 7 PM ET"
+SCHEDULE = "6 NEW SHORTS EVERY DAY"
 
 BG_TOP, BG_BOT = (8, 12, 26), (22, 32, 62)
 FG, ACC, UP, DOWN, MUTED = (255, 255, 255), (255, 196, 0), (34, 197, 94), (239, 68, 68), (148, 163, 184)

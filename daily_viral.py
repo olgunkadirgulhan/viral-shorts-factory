@@ -12,7 +12,7 @@ import requests
 
 import renderer
 from common import (DATA, OUT, STATE, BRAIN, PY, BASE, YTS, OOT, TODAY, CONTENT_LANG, llm, lines, log, retry, sh,
-                    skill, context, tg, yt_creds, have_yt_creds)
+                    skill, context, tg, yt_creds, have_yt_creds, is_quota_error)
 from scoring import check_title, score_hooks
 
 HOOK_MIN = int(os.environ.get("HOOK_MIN", 60))
@@ -23,8 +23,10 @@ TR = CONTENT_LANG == "tr"
 TZ = ZoneInfo(os.environ.get("PUBLISH_TZ", "Europe/Istanbul" if TR else "America/New_York"))
 # yerel saat=hedef — going-viral rotasyonu (SHARE öğlen, SAVE akşam, 3. slot FOLLOW).
 # EN varsayılanı crypto-shorts-factory'nin 09/14/19 UTC slotlarıyla çakışmaz (12:30 ET=16:30Z, 19:00 ET=23:00Z).
+# 6 slot (günlük 10.000 kota: 6 × 1.600 yükleme + ~350 okuma/liste). İlk n slot kullanılır.
 SLOTS = [(s.split("=")[0], s.split("=")[1]) for s in os.environ.get(
-    "SLOTS", "14:00=SHARE,20:00=SAVE,11:00=FOLLOW" if TR else "12:30=SHARE,19:00=SAVE,17:00=FOLLOW").split(",")]
+    "SLOTS", "14:00=SHARE,20:00=SAVE,11:00=FOLLOW" if TR else
+    "07:00=SAVE,09:30=SHARE,12:30=SHARE,15:00=FOLLOW,17:30=SAVE,20:00=SHARE").split(",")]
 DISCLAIMER = "Yatırım Tavsiyesi Değildir" if TR else "Not financial advice"
 DRY = "--dry-run" in sys.argv
 
@@ -413,11 +415,18 @@ def main():
         except Exception as e:
             log(traceback.format_exc())
             report.append(f"⚠️ keşif/seçim hatası: {str(e)[:200]} → güvenli format")
+    used, tickers_today, quota_hit, recap_done = set(), set(), False, False
     for i, (hhmm, goal) in enumerate(slots):
+        if quota_hit:
+            report.append(f"⏸ [{goal}] {hhmm} atlandı — günlük YouTube kotası doldu, yarın devam")
+            continue
         publish_at = publish_time(hhmm)
         done = False
-        cands = [x for x in pool if x.get("goal") == goal][:3] or pool[i::len(slots)][:3]
-        for idea in cands:
+        free = [x for x in pool if id(x) not in used]
+        # aynı hedefteki fikirler önce; aynı gün aynı hisse tekrar etmesin
+        free.sort(key=lambda x: (x.get("goal") != goal, x.get("ticker") in tickers_today))
+        for idea in free[:3]:
+            used.add(id(idea))
             log(f"[{goal}] {idea['idea'][:80]}")
             try:
                 job, why = produce(idea, mined, td, market)
@@ -428,6 +437,7 @@ def main():
                 job["video_id"] = retry(upload_youtube, mp4, job["package"], job["platforms"]["youtube"], publish_at)
                 job["publish_at"] = publish_at
                 add_to_playlist(job["video_id"], ticker=job["idea"].get("ticker"))
+                tickers_today.add(job["idea"].get("ticker"))
                 (DATA / f"job_{TODAY}_{i}.json").write_text(json.dumps(job, ensure_ascii=False, indent=1), encoding="utf-8")
                 brain_save(job)
                 report.append(f"✅ [{goal}] {job['package']['title']}\n   hook {job['hook']['verdict']} · title "
@@ -436,13 +446,22 @@ def main():
                 break
             except Exception as e:
                 log(traceback.format_exc())
+                if is_quota_error(e):
+                    quota_hit = True
+                    report.append(f"⏸ [{goal}] günlük YouTube kotası doldu, kalan slotlar yarına")
+                    break
                 report.append(f"↻ {idea['idea'][:40]} — hata: {str(e)[:150]}")
-        if not done:                                                # slot asla boş kalmaz
+        if not done and recap_done:                                 # aynı özet 2. kez = tekrarlayan içerik
+            report.append(f"⏭ [{goal}] {hhmm} boş bırakıldı — bugünün piyasa özeti zaten yüklendi")
+        elif not done and not quota_hit:                            # slot boş kalmasın: günde bir özet
+            recap_done = True
             try:
                 vid = retry(fallback_recap, snap, i, publish_at)
                 report.append(f"🛟 [{goal}] güvenli format (piyasa özeti) → https://youtu.be/{vid}")
             except Exception as e:
                 log(traceback.format_exc())
+                if is_quota_error(e):
+                    quota_hit = True
                 report.append(f"❌ [{goal}] güvenli format da başarısız: {str(e)[:200]}")
     msg = f"🎬 {TODAY} günlük viral (bilgi amaçlı, işlem gerekmez)\n\n" + "\n\n".join(report)
     log(msg)

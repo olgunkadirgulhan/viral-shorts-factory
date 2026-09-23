@@ -20,7 +20,7 @@ BEATS = [
     {"say": "Stocks move every single day. Most people never find out why.", "scene": "hook"},
     {"say": "On Why Stocks Moved, you get one real market move, explained in under forty seconds.", "scene": "phone"},
     {"say": "Nvidia, Apple, Tesla, the Fed, gold and oil. Real numbers from today's data. No hype, and no price predictions.", "scene": "tiles"},
-    {"say": "New Shorts every day at twelve thirty and seven P M Eastern. Subscribe, so you always know why.", "scene": "end"},
+    {"say": "Six new Shorts every single day. Subscribe, so you always know why.", "scene": "end"},
 ]
 
 
@@ -115,7 +115,7 @@ def scene_end(img, p, m, icon):
     x = (W - d.textlength(a + b, font=f)) / 2
     d.text((x, 470), a, font=f, fill=R.ACC)
     d.text((x + d.textlength(a, font=f), 470), b, font=f, fill=R.FG)
-    centered(d, 610, "New Shorts daily · 12:30 PM & 7 PM ET", R.font(50), (226, 232, 240))
+    centered(d, 610, "6 new Shorts every day", R.font(50), (226, 232, 240))
     if p > 0.35:                                                  # abone ol butonu
         pulse = 1 + 0.06 * abs(((p * 3) % 1) - 0.5)
         bw, bh = 520 * pulse, 120 * pulse

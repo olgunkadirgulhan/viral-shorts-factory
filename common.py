@@ -124,12 +124,16 @@ def llm(system, prompt, as_json=True, creative=False):
     return _json_from(txt) if as_json else txt
 
 
+def is_quota_error(e):
+    return "quotaExceeded" in str(e) or "dailyLimitExceeded" in str(e)
+
+
 def retry(fn, *a, tries=3, waits=(30, 120, 300), **kw):
     for k in range(tries):
         try:
             return fn(*a, **kw)
         except Exception as e:
-            if k == tries - 1:
+            if k == tries - 1 or is_quota_error(e):     # kota bitti: tekrar denemek kotayı daha da yer
                 raise
             log(f"retry {fn.__name__} ({str(e)[:200]}) {waits[k]}s sonra")
             time.sleep(waits[k])

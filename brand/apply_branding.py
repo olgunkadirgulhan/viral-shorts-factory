@@ -22,7 +22,7 @@ Why did Nvidia jump? Why is oil falling? What does the Fed decision mean for you
 
 Real numbers only. No hype, no price predictions, no "buy now".
 
-New Shorts every day at 12:30 PM and 7 PM ET.
+6 new Shorts every day, from the morning open to the evening wrap.
 
 Not financial advice. Market data may be delayed. Everything here is for education and information only. Do your own research before making any investment decision."""
 
