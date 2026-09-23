@@ -1,0 +1,155 @@
+{
+ "idea": {
+  "idea": "Oil just dropped 12% in five days. Here is what this sharp decline means for your portfolio and everyday costs.",
+  "goal": "SAVE",
+  "emotion": "relief and fear-of-forgetting",
+  "formula": "The Question",
+  "ticker": "CL=F",
+  "structure_from": "https://www.youtube.com/shorts/6f5rmIYBERY",
+  "payoff_withheld_until_end": "The exact 5-day percentage drop and the macro driver behind it",
+  "data_points": [
+   "Oil price 90.03",
+   "Oil change_5d_pct -12.11",
+   "Oil news on rate outlook and global diplomacy"
+  ]
+ },
+ "hook": {
+  "hook": "Why oil just crashed 12 percent in five days before you rebalance your portfolio",
+  "properties": {
+   "SPECIFICITY": 51,
+   "ADDRESS": 66,
+   "STAKES": 62,
+   "CURIOSITY": 58,
+   "BREVITY": 100
+  },
+  "verdict": 61,
+  "band": "WORKABLE",
+  "formula": "The Question",
+  "on_screen": "Oil dropped 12%"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "Why oil just crashed 12 percent in five days before you rebalance your portfolio",
+    "osd": "Oil dropped 12%",
+    "emphasis": "dropped",
+    "visual": "chart",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Global WTI crude is now trading at 90 dollars and 3 cents a barrel",
+    "osd": "Trading at 90.03",
+    "emphasis": "90.03",
+    "visual": "counter",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Reports say easing oil prices come as markets monitor Middle East diplomacy and interest rate outlooks",
+    "osd": "Diplomacy and rate outlooks",
+    "emphasis": "diplomacy",
+    "visual": "text",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Lower energy costs can ease inflation pressure and change how the Federal Reserve views rates",
+    "osd": "Easing inflation pressure",
+    "emphasis": "inflation",
+    "visual": "compare",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Keep watching the macro news, not the noise",
+    "osd": "Watch macro news",
+    "emphasis": "macro",
+    "visual": "text",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Not financial advice",
+    "osd": "Not financial advice",
+    "emphasis": "advice",
+    "visual": "text",
+    "ticker": "CL=F"
+   }
+  ],
+  "word_count": 70,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Oil dropped 12% in five days",
+  "chars": 28,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "28 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (12%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "ENERGY SHOCK",
+  "visual_brief": "A sharp downward-sloping crude oil price chart in red, centered against a dark charcoal background. Keep text in the middle third, clear of top 12% UI and bottom 20% captions."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "why did oil prices drop 12 percent",
+    "oil price crash meaning for stock portfolio",
+    "wti crude price drop 90 dollars"
+   ],
+   "description": "Oil dropped 12% in five days to $90.03 a barrel, driven by Middle East diplomacy and rate outlooks. Here is what the decline means for your portfolio and everyday costs.\n\nNot financial advice.\n\n#oil #oilprices #wti #stocks #macroeconomics #shorts",
+   "tags": [
+    "oil prices",
+    "wti crude",
+    "oil dropped 12 percent",
+    "crude oil price",
+    "oil crash",
+    "inflation and oil",
+    "federal reserve rates",
+    "portfolio rebalancing",
+    "macro news",
+    "energy costs",
+    "stocks",
+    "market update",
+    "commodity prices",
+    "why stocks moved",
+    "not financial advice"
+   ],
+   "query_test_pass": false
+  }
+ },
+ "teardown": {
+  "hook": "Why Trump merchandise sales are suddenly plunging",
+  "hook_why": "The Question formula creates an instant curiosity gap about a major current event without using clickbait, forcing viewers to wait for the answer.",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "No transcript available — work from title + formula only, say so.",
+    "shown": "A moving stock chart or financial data visualization related to retail/political merchandise stock."
+   },
+   {
+    "t": "3-15s",
+    "said": "Breaking down the data behind the recent consumer spending shift and what it means for the broader market.",
+    "shown": "Zooming in on key retail data points with clean, minimalist on-screen text highlighting the drop."
+   },
+   {
+    "t": "15-30s",
+    "said": "How shifts in political momentum directly impact consumer discretionary spending and retail stock sentiment.",
+    "shown": "A side-by-side comparison of past sales volume versus current figures, keeping the chart in motion."
+   },
+   {
+    "t": "30-40s",
+    "said": "Remember, this is not financial advice. Keep an eye on the numbers, not the noise.",
+    "shown": "Final clear takeaway on screen with a subtle CTA to follow Why Stocks Moved."
+   }
+  ],
+  "pacing": "Fast cuts every 3 to 4 seconds, maintaining high energy with constant visual movement on the chart from frame zero.",
+  "visual_technique": "Talking head paired with a dynamic, moving financial chart taking up the top half of the frame, supported by bold on-screen text for mute viewers.",
+  "reusable_moves": [
+   "Open with a direct, high-curiosity question about a trending news event tied to markets.",
+   "Keep a chart moving on screen from the very first frame to ground the discussion in real data."
+  ],
+  "remake_plan": "Apply The Question formula to a major stock or Fed rate shift, using a moving chart and zero jargon to explain the exact cause behind the market move."
+ },
+ "video_id": "xpQVO-brSMQ",
+ "publish_at": "2026-09-23T21:30:00Z"
+}

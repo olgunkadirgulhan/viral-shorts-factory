@@ -1,0 +1,148 @@
+{
+ "idea": {
+  "idea": "Meta's +11% surge isn't just about social media anymore — here is the exact AI tool that added billions to its market cap overnight.",
+  "goal": "SHARE",
+  "emotion": "awe and status",
+  "formula": "The Question",
+  "ticker": "META",
+  "structure_from": "https://www.youtube.com/shorts/VaWg8b5oN6k",
+  "payoff_withheld_until_end": "The specific AI agent name and how it directly impacted valuation",
+  "data_points": [
+   "Meta price 741.25",
+   "Meta change_pct 11.43",
+   "Meta news about Muse AI agent"
+  ]
+ },
+ "hook": {
+  "hook": "What made Meta shares jump 11 percent before you lost money in your tech portfolio?",
+  "properties": {
+   "SPECIFICITY": 62,
+   "ADDRESS": 66,
+   "STAKES": 88,
+   "CURIOSITY": 76,
+   "BREVITY": 100
+  },
+  "verdict": 72,
+  "band": "STRONG",
+  "formula": "The Question",
+  "on_screen": "Why Meta jumped"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "What made Meta shares jump 11 percent before you lost money in your tech portfolio?",
+    "osd": "Why Meta jumped",
+    "emphasis": "Meta",
+    "visual": "chart",
+    "ticker": "META"
+   },
+   {
+    "say": "Meta stock surged 11.43 percent up to 741.25 dollars as investors pile back into Big Tech.",
+    "osd": "META surges 11.43 percent",
+    "emphasis": "surged",
+    "visual": "counter",
+    "ticker": "META"
+   },
+   {
+    "say": "Reports say the catalyst is Muse, Meta's new AI agent making major waves across markets.",
+    "osd": "Muse AI drives value",
+    "emphasis": "Muse",
+    "visual": "text",
+    "ticker": "META"
+   },
+   {
+    "say": "Even the S&P 500 rose 1.49 percent as the return of the AI rally lifts index leaders.",
+    "osd": "S&P 500 up 1.49 percent",
+    "emphasis": "rally",
+    "visual": "compare",
+    "ticker": "META"
+   },
+   {
+    "say": "Remember, this is not financial advice. Follow Why Stocks Moved for daily market updates.",
+    "osd": "Not financial advice",
+    "emphasis": "advice",
+    "visual": "text",
+    "ticker": "META"
+   }
+  ],
+  "word_count": 77,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Meta surged 11% on this exact AI tool",
+  "chars": 37,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "37 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (11%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "AD REVENUE SHOCK",
+  "visual_brief": "Split screen showing an ad dashboard and a soaring stock line graph, dark mode aesthetic."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "why did meta stock jump 11 percent",
+    "meta ai tool muse market cap surge",
+    "meta stock analysis today"
+   ],
+   "description": "Meta shares jumped 11 percent after investors reacted to Muse, Meta's new AI agent. Here is what drove the market move today.\n\nNot financial advice. Follow Why Stocks Moved for daily market updates.\n\n#shorts #Meta #AI #stocks",
+   "tags": [
+    "Meta stock",
+    "Meta AI",
+    "Muse AI",
+    "Meta earnings",
+    "Big Tech stocks",
+    "SP 500",
+    "stock market today",
+    "why stocks moved",
+    "Meta share price",
+    "AI stocks",
+    "tech stocks 2026",
+    "stock market news",
+    "market update",
+    "wall street",
+    "investing"
+   ],
+   "query_test_pass": true
+  }
+ },
+ "teardown": {
+  "hook": "Why Trump merchandise sales are suddenly plunging",
+  "hook_why": "The Question formula creates an instant curiosity gap about a major current event without using clickbait, forcing viewers to wait for the answer.",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "No transcript available — work from title + formula only, say so.",
+    "shown": "A moving stock chart or financial data visualization related to retail/political merchandise stock."
+   },
+   {
+    "t": "3-15s",
+    "said": "Breaking down the data behind the recent consumer spending shift and what it means for the broader market.",
+    "shown": "Zooming in on key retail data points with clean, minimalist on-screen text highlighting the drop."
+   },
+   {
+    "t": "15-30s",
+    "said": "How shifts in political momentum directly impact consumer discretionary spending and retail stock sentiment.",
+    "shown": "A side-by-side comparison of past sales volume versus current figures, keeping the chart in motion."
+   },
+   {
+    "t": "30-40s",
+    "said": "Remember, this is not financial advice. Keep an eye on the numbers, not the noise.",
+    "shown": "Final clear takeaway on screen with a subtle CTA to follow Why Stocks Moved."
+   }
+  ],
+  "pacing": "Fast cuts every 3 to 4 seconds, maintaining high energy with constant visual movement on the chart from frame zero.",
+  "visual_technique": "Talking head paired with a dynamic, moving financial chart taking up the top half of the frame, supported by bold on-screen text for mute viewers.",
+  "reusable_moves": [
+   "Open with a direct, high-curiosity question about a trending news event tied to markets.",
+   "Keep a chart moving on screen from the very first frame to ground the discussion in real data."
+  ],
+  "remake_plan": "Apply The Question formula to a major stock or Fed rate shift, using a moving chart and zero jargon to explain the exact cause behind the market move."
+ },
+ "video_id": "JWU1cUCDk8M",
+ "publish_at": "2026-09-23T16:30:00Z"
+}
