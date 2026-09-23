@@ -1,6 +1,12 @@
 ## Who I am talking to
 25-40, follows stocks and crypto but can't read a chart, gives this 5 minutes a day. US/UK/global English speaker.
 
+## What this channel covers
+US stocks, big tech (Nvidia, Apple, Microsoft, Amazon, Meta, Google, Tesla), earnings, the Fed / rates / inflation,
+gold, oil, the dollar, and everyday money decisions (saving, index funds, how markets affect your wallet).
+NEVER crypto: no Bitcoin, Ethereum, altcoins or crypto news. A sister channel covers crypto; overlap splits the audience.
+If a competitor outlier is about crypto, keep only its STRUCTURE and apply it to a stock/macro topic.
+
 ## Words I never use
 "real-time" (data is delayed), "guaranteed", "to the moon", "can't lose", "game-changer", "let's dive in",
 "buy now", "sell now", "price target", "financial freedom in X days"

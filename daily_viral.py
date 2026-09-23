@@ -186,6 +186,7 @@ Today's REAL market data (only these numbers, never invent): {json.dumps(market,
 Make {len(goals)} ideas. Idea i has goal = {goals}[i]. Each reuses a proven STRUCTURE on today's data,
 answers a real audience question where possible, and states the emotion that drives its goal.
 "ticker" must be one of the market data keys and is the asset the video is about.
+Every idea must fit "What this channel covers" in the voice profile; never pick a topic it excludes.
 JSON: {{"ideas":[{{"idea":"...","goal":"SHARE|SAVE|FOLLOW","emotion":"...","formula":"...","ticker":"...",
 "structure_from":"<outlier url>","payoff_withheld_until_end":"...","data_points":["..."]}}]}}""")
     return [i for i in r.get("ideas", []) if isinstance(i, dict) and i.get("idea")][:len(goals)]

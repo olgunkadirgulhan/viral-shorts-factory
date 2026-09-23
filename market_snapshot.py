@@ -14,7 +14,7 @@ NAMES = {"BTC-USD": "Bitcoin", "ETH-USD": "Ethereum", "SOL-USD": "Solana", "XU10
          "CL=F": "Petrol (WTI)" if TR else "Oil (WTI)", "DX-Y.NYB": "Dolar Endeksi" if TR else "Dollar Index",
          "NVDA": "Nvidia", "TSLA": "Tesla", "AAPL": "Apple", "MSFT": "Microsoft", "AMZN": "Amazon",
          "META": "Meta", "GOOGL": "Google"}
-TICKERS = os.environ.get("MARKET_TICKERS", "BTC-USD,ETH-USD,^GSPC,^IXIC,GC=F,CL=F,NVDA,TSLA").split(",")
+TICKERS = os.environ.get("MARKET_TICKERS", "^GSPC,^IXIC,^DJI,GC=F,CL=F,DX-Y.NYB,NVDA,AAPL,MSFT,TSLA,AMZN,META").split(",")
 
 
 def snap(sym):

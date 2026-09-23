@@ -43,7 +43,7 @@ jobs:
       YOUTUBE_PRIVACY: ${{ vars.YOUTUBE_PRIVACY || 'unlisted' }}
       PUBLISH_TZ: ${{ vars.PUBLISH_TZ || 'America/New_York' }}
       SLOTS: ${{ vars.SLOTS || '12:30=SHARE,19:00=SAVE,17:00=FOLLOW' }}
-      MARKET_TICKERS: ${{ vars.MARKET_TICKERS || 'BTC-USD,ETH-USD,^GSPC,^IXIC,GC=F,CL=F,NVDA,TSLA' }}
+      MARKET_TICKERS: ${{ vars.MARKET_TICKERS || '^GSPC,^IXIC,^DJI,GC=F,CL=F,DX-Y.NYB,NVDA,AAPL,MSFT,TSLA,AMZN,META' }}
       CHANNEL_NAME: ${{ vars.CHANNEL_NAME }}
       TTS_VOICE: ${{ vars.TTS_VOICE || 'en-US-AndrewMultilingualNeural' }}
       TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

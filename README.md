@@ -1,6 +1,6 @@
 # Viral Shorts Factory: İngilizce, GitHub Actions üzerinde tam otomatik
 
-`gunluk-viral-video-otomasyonu.md` dokümanındaki sistem. **GitHub Actions'ta çalışır, bilgisayarın kapalı olabilir.**
+`gunluk-viral-video-otomasyonu.md` dokümanındaki sistem. **Konu:** ABD hisseleri, büyük teknoloji, makro (Fed, faiz, enflasyon), altın, petrol, dolar ve kişisel finans. **Kripto yok**, o konu kardeş kanal `crypto-shorts-factory`'de (`state/voice.md`). **GitHub Actions'ta çalışır, bilgisayarın kapalı olabilir.**
 Her gün 10:00 UTC'de (06:00 New York) şu sırayla ilerler:
 
 ```
@@ -40,7 +40,9 @@ Google Cloud'da **YouTube Data API v3** ve **YouTube Analytics API** açık olma
 python auth_youtube.py --set-github-secrets
 ```
 
-Tarayıcıda kanalın hesabını seçip "İzin ver"e tıkla. Üç YouTube secret'ı doğrudan repoya yazılır. Mevcut projenin refresh token'ını da kullanabilirsin, ama haftalık analiz Analytics yetkisi ister. O yüzden bu betikle yeni bir token üret.
+Tarayıcıda **bu yeni kanalı** seç (kripto kanalını değil) ve "İzin ver"e tıkla. Betik bağlanan kanalın adını yazar, kontrol et. Üç YouTube secret'ı doğrudan repoya yazılır.
+
+Bu ayrı bir kanal. Kripto projesinden **ayrı bir Google Cloud projesi** aç, böylece her kanalın kendi 10.000 birimlik günlük kotası olur.
 
 **OAuth consent screen → Publish app ("In production")** yap, yoksa token 7 günde düşer. Herkese açık yayın için **YouTube API audit** formunu da doldur.
 
@@ -49,10 +51,10 @@ Tarayıcıda kanalın hesabını seçip "İzin ver"e tıkla. Üç YouTube secret
 | Variable | Varsayılan | Not |
 |---|---|---|
 | `YOUTUBE_PRIVACY` | `unlisted` | İlk hafta izle. Sonra `scheduled` yap: video slot saatinde herkese açılır |
-| `VIDEOS_PER_DAY` | `2` | Günlük kota ~6 video. crypto-shorts-factory aynı Google projesindeyse toplamı hesapla |
+| `VIDEOS_PER_DAY` | `2` | Ayrı Google Cloud projesinde günlük kota ~6 videoya yeter |
 | `SLOTS` | `12:30=SHARE,19:00=SAVE,17:00=FOLLOW` | New York saati. Kripto kanalının 09/14/19 UTC slotlarıyla çakışmaz |
 | `ANTHROPIC_MODEL` | `claude-opus-5` | Ucuzlatmak için `claude-haiku-4-5` |
-| `MARKET_TICKERS` | `BTC-USD,ETH-USD,^GSPC,^IXIC,GC=F,CL=F,NVDA,TSLA` | Yahoo Finance sembolleri |
+| `MARKET_TICKERS` | `^GSPC,^IXIC,^DJI,GC=F,CL=F,DX-Y.NYB,NVDA,AAPL,MSFT,TSLA,AMZN,META` | Yahoo Finance sembolleri |
 | `CHANNEL_NAME`, `TTS_VOICE` | — / `en-US-AndrewMultilingualNeural` | |
 
 ### 4. Rakip kanallar

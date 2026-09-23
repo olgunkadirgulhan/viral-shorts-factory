@@ -1,6 +1,7 @@
-# Demand signal (agent-reach logic): today's most-discussed questions
+# Demand signal (agent-reach logic): today's most-discussed questions. No crypto subs (sister channel).
 stocks
 investing
-CryptoCurrency
-wallstreetbets
+StockMarket
 personalfinance
+wallstreetbets
+Economics
