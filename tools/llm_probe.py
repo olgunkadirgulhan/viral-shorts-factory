@@ -29,6 +29,17 @@ def main():
     ok = False
     if os.environ.get("GEMINI_API_KEY"):
         gemini_models()
+        import requests
+        for m in ["gemini-flash-latest", "gemini-flash-lite-latest", "gemini-3.8-flash", "gemini-3.5-flash",
+                  "gemini-3.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.5-flash"]:
+            t0 = time.time()
+            r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent",
+                              params={"key": os.environ["GEMINI_API_KEY"]}, timeout=120, json={
+                                  "contents": [{"role": "user", "parts": [{"text": PROMPT}]}],
+                                  "generationConfig": {"responseMimeType": "application/json"}})
+            msg = r.json().get("error", {}).get("message", "")[:150] if not r.ok else \
+                r.json()["candidates"][0]["content"]["parts"][-1]["text"][:80]
+            print(f"  gemini model {m:26} {r.status_code} {time.time() - t0:4.1f}s {msg}")
     for name, (fn, key) in common._BACKENDS.items():
         if name == "ollama":
             continue
