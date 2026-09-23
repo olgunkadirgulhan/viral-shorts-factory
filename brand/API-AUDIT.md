@@ -1,6 +1,8 @@
 # YouTube API audit formu: hazır cevaplar
 
-**Neden şart:** Denetimden geçmemiş bir Google Cloud projesinden `videos.insert` ile yüklenen her video YouTube tarafından **kalıcı olarak gizli (private) kilitlenir**. Onay gelmeden yüklenen videolar sonradan açılamaz. Onaydan sonra yüklenenler normal çalışır.
+**Şu an GEREKMİYOR.** 2026-09-23'te `viral-509508` projesinden API ile yüklenen test videosu herkese açık kaldı, kilitlenmedi. Bu formu yalnızca şu iki durumda doldur:
+- Günlük 10.000 birimlik kota yetmezse (günde ~6'dan fazla video),
+- Yüklenen videolar ileride "Gizli (kilitli)" görünmeye başlarsa.
 
 **Form:** https://support.google.com/youtube/contact/yt_api_form
 Açılan sayfada "YouTube API Services - Audit and Quota Extension Form" seçeneğini seç. Formu, Why Stocks Moved kanalının bağlı olduğu Gmail ile doldur.
