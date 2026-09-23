@@ -12,3 +12,4 @@ data/ret_*
 data/market_test.json
 __pycache__/
 .claude/
+brand/_preview_*
