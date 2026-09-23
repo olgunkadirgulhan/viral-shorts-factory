@@ -320,14 +320,33 @@ JSON: {{"pairs":[{{"title":"...","thumb":"...","visual_brief":"..."}}]}}""").get
 
 
 # ---------------- 10. SEO (yt-seo) ----------------
+def _seo_fallback(idea, pkg, script):
+    """LLM'siz SEO: kapıları geçmiş bir video SEO adımı yüzünden asla kaybolmasın."""
+    first = script["beats"][1]["say"] if len(script["beats"]) > 1 else script["beats"][0]["say"]
+    name = (idea.get("ticker") or "").lstrip("^")
+    return {"queries": [], "description": f"{pkg['title']}. {first}",
+            "tags": [t for t in [name, "stock market", "stocks", "investing", "market news", "why stocks moved"] if t]}
+
+
 def seo(idea, pkg, script):
-    s = llm(skill("yt", "yt-seo") + "\n\n" + context(),
-            f"""Title: {pkg['title']}  Idea: {idea['idea']}  Goal: {idea['goal']}
+    yt = None
+    for _ in range(2):
+        try:
+            s = llm(skill("yt", "yt-seo") + "\n\n" + context(),
+                    f"""Title: {pkg['title']}  Idea: {idea['idea']}  Goal: {idea['goal']}
 Script: {json.dumps(script['beats'], ensure_ascii=False)}
-JSON: {{
- "youtube": {{"queries":["q1","q2","q3"],"description":"2 lines = what viewer gets, then '{DISCLAIMER}', then #shorts","tags":["<=15"]}}
-}}""")
-    yt = s["youtube"]
+Return EXACTLY this JSON shape (the outer "youtube" key is required):
+{{"youtube": {{"queries":["q1","q2","q3"],"description":"2 lines = what viewer gets, then '{DISCLAIMER}', then #shorts","tags":["<=15 tags"]}}}}""")
+            cand = s.get("youtube", s) if isinstance(s, dict) else {}     # model sarmalayıcıyı unutabiliyor
+            if isinstance(cand, dict) and isinstance(cand.get("description"), str) and cand["description"].strip():
+                yt = cand
+                break
+        except Exception as e:
+            log(f"  seo denemesi başarısız: {str(e)[:120]}")
+    if not yt:
+        log("  seo: LLM çıktısı kullanılamadı, veriden oluşturuldu")
+        yt = _seo_fallback(idea, pkg, script)
+    s = {"youtube": yt}
     yt["tags"] = [t for t in yt.get("tags", []) if isinstance(t, str)][:15]
     if DISCLAIMER.lower() not in yt["description"].lower():
         yt["description"] += f"\n{DISCLAIMER}."
