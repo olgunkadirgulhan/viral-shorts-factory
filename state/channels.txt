@@ -1,0 +1,4 @@
+# Competitor channels in your niche: one Shorts URL per line (10-20 channels, 4+ videos each).
+# swipe.py scores every video against ITS OWN channel median; channels with <4 Shorts are skipped.
+# Accepted forms: https://www.youtube.com/@handle/shorts  or  https://www.youtube.com/channel/UC.../shorts
+# While this list is empty the system still runs, but uploads only the safe format (market recap).

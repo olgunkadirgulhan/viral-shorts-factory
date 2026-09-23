@@ -1,0 +1,435 @@
+#!/usr/bin/env python3
+"""daily_viral.py — youtube-agent-skill + claude-content-skills → tam otomatik günlük pipeline.
+
+    python daily_viral.py --videos 2              # normal günlük çalışma (Görev Zamanlayıcı bunu çağırır)
+    python daily_viral.py --videos 1 --dry-run    # her şeyi üret + render et, YouTube'a yükleme
+    python daily_viral.py --fallback-only --dry-run   # sadece güvenli formatı (piyasa özeti) dene
+"""
+import csv, datetime, glob, json, os, re, sys, traceback
+from zoneinfo import ZoneInfo
+
+import requests
+
+import renderer
+from common import (DATA, OUT, STATE, BRAIN, PY, BASE, YTS, OOT, TODAY, CONTENT_LANG, llm, lines, log, retry, sh,
+                    skill, context, tg, yt_creds, have_yt_creds)
+from scoring import check_title, score_hooks
+
+HOOK_MIN = int(os.environ.get("HOOK_MIN", 60))
+TITLE_MIN = int(os.environ.get("TITLE_MIN", 85))
+OUTLIER_MIN = float(os.environ.get("OUTLIER_MIN", 3.0))
+MAX_TRIES, MAX_OSD_WORDS = 3, 7
+TR = CONTENT_LANG == "tr"
+TZ = ZoneInfo(os.environ.get("PUBLISH_TZ", "Europe/Istanbul" if TR else "America/New_York"))
+# yerel saat=hedef — going-viral rotasyonu (SHARE öğlen, SAVE akşam, 3. slot FOLLOW).
+# EN varsayılanı crypto-shorts-factory'nin 09/14/19 UTC slotlarıyla çakışmaz (12:30 ET=16:30Z, 19:00 ET=23:00Z).
+SLOTS = [(s.split("=")[0], s.split("=")[1]) for s in os.environ.get(
+    "SLOTS", "14:00=SHARE,20:00=SAVE,11:00=FOLLOW" if TR else "12:30=SHARE,19:00=SAVE,17:00=FOLLOW").split(",")]
+DISCLAIMER = "Yatırım Tavsiyesi Değildir" if TR else "Not financial advice"
+DRY = "--dry-run" in sys.argv
+
+
+def publish_time(hhmm):
+    """Slot saatini RFC3339 UTC'ye çevirir; saat geçtiyse 20 dk sonrasına kaydırır (publishAt gelecekte olmalı)."""
+    h, m = map(int, hhmm.split(":"))
+    now = datetime.datetime.now(TZ)
+    t = now.replace(hour=h, minute=m, second=0, microsecond=0)
+    if t < now + datetime.timedelta(minutes=15):
+        t = now + datetime.timedelta(minutes=20)
+    return t.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+# ---------------- 0. PİYASA VERİSİ (yfinance) ----------------
+def market_snapshot():
+    snap = json.loads(sh([PY, BASE / "market_snapshot.py"], timeout=300))
+    (DATA / f"market_{TODAY}.json").write_text(json.dumps(snap, ensure_ascii=False), encoding="utf-8")
+    return snap
+
+
+def market_brief(snap):
+    """LLM'e giden hali: seri yok, sadece rakamlar (token tasarrufu)."""
+    return {k: {x: v[x] for x in ("name", "price", "change_pct", "change_5d_pct", "as_of")}
+            for k, v in snap["tickers"].items()}
+
+
+# ---------------- 1. TALEP (agent-reach → Reddit) ----------------
+def demand():
+    out = []
+    for sub in lines(STATE / "subreddits.txt"):
+        try:
+            j = requests.get(f"https://www.reddit.com/r/{sub}/top.json?t=day&limit=15",
+                             headers={"User-Agent": "viral-pipeline/1.0"}, timeout=20).json()
+            out += [{"sub": sub, "title": c["data"]["title"], "score": c["data"]["score"],
+                     "comments": c["data"]["num_comments"]} for c in j["data"]["children"]]
+        except Exception as e:
+            log(f"reddit atlandı {sub}: {e}")        # 429 vb. → o gün talep adımı eksik kalır, devam
+    out.sort(key=lambda x: -(x["score"] + 3 * x["comments"]))
+    return out[:20]
+
+
+# ---------------- 2. KEŞİF (/yt-viral) ----------------
+def _iso_seconds(d):
+    m = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", d or "")
+    return sum(int(x or 0) * k for x, k in zip(m.groups(), (3600, 60, 1))) if m else None
+
+
+def collect_api(url, api):
+    """YouTube Data API ile kanalın son 30 videosu (~3 kota birimi). GitHub IP'lerinde yt-dlp bot engeline takılır."""
+    m = re.search(r"youtube\.com/(@[\w.\-]+|channel/(UC[\w\-]+))", url)
+    if not m:
+        raise ValueError(f"tanınmayan kanal URL'si: {url}")
+    q = {"id": m.group(2)} if m.group(2) else {"forHandle": m.group(1)}
+    items = api.channels().list(part="contentDetails,snippet", **q).execute().get("items", [])
+    if not items:
+        raise ValueError("kanal bulunamadı")
+    ch = items[0]["snippet"]["title"]
+    uploads = items[0]["contentDetails"]["relatedPlaylists"]["uploads"]
+    pl = api.playlistItems().list(part="contentDetails", playlistId=uploads, maxResults=30).execute()
+    ids = [i["contentDetails"]["videoId"] for i in pl.get("items", [])]
+    rows = []
+    for v in api.videos().list(part="snippet,statistics,contentDetails", id=",".join(ids)).execute().get("items", []):
+        dur = _iso_seconds(v["contentDetails"].get("duration"))
+        if dur and dur <= 180 and v["statistics"].get("viewCount"):    # sadece Shorts uzunluğu
+            rows.append({"channel": ch, "title": v["snippet"]["title"], "views": int(v["statistics"]["viewCount"]),
+                         "duration": dur, "url": f"https://www.youtube.com/shorts/{v['id']}"})
+    return rows
+
+
+def collect_ytdlp(url):
+    j = json.loads(sh([PY, "-m", "yt_dlp", "--flat-playlist", "-J", "--playlist-end", "30", url], timeout=180))
+    ch = j.get("channel") or j.get("uploader") or url
+    return [{"channel": ch, "title": e.get("title", ""), "views": e["view_count"], "duration": e.get("duration"),
+             "url": e.get("url") or f"https://www.youtube.com/shorts/{e.get('id')}"}
+            for e in j.get("entries") or [] if e.get("view_count")]
+
+
+def discover():
+    rows = []
+    api = None
+    if have_yt_creds():
+        from googleapiclient.discovery import build
+        api = build("youtube", "v3", credentials=yt_creds(), cache_discovery=False)
+    for url in lines(STATE / "channels.txt"):
+        try:
+            rows += collect_api(url, api) if api else collect_ytdlp(url)
+        except Exception as e:
+            log(f"kanal atlandı {url}: {str(e)[:200]}")
+    p = DATA / f"collected_{TODAY}.json"
+    p.write_text(json.dumps(rows, ensure_ascii=False), encoding="utf-8")
+    res = {"outliers": []}
+    for lo in (OUTLIER_MIN, 2.0):                                   # eşik düşürme yedeği
+        res = json.loads(sh([PY, YTS / "yt-viral" / "swipe.py", p, "--min", str(lo), "--json"]))
+        if res["outliers"]:
+            break
+    if not res["outliers"]:                                         # son 7 günün outlier'ları
+        for f in sorted(glob.glob(str(DATA / "outliers_*.json")))[-7:]:
+            res["outliers"] += json.loads(open(f, encoding="utf-8").read())["outliers"][:5]
+        res["outliers"].sort(key=lambda r: -r["multiple"])
+    else:
+        (DATA / f"outliers_{TODAY}.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
+    log(f"keşif: {len(rows)} video, {len(res['outliers'])} outlier")
+    return res["outliers"]
+
+
+# ---------------- 3. İNCELEME (reel-analyzer + agent-reach video) ----------------
+def transcript(url):
+    stem = DATA / f"sub_{TODAY}"
+    try:
+        sh([PY, "-m", "yt_dlp", "--write-auto-sub", "--write-sub", "--sub-lang", "en.*,tr", "--sub-format", "vtt",
+            "--skip-download", "-o", stem, url], timeout=180)
+    except Exception:
+        return ""
+    files = glob.glob(f"{stem}*.vtt")
+    if not files:
+        return ""
+    out, seen = [], set()
+    for ln in open(files[0], encoding="utf-8", errors="ignore"):
+        ln = re.sub(r"<[^>]+>", "", ln).strip()
+        if not ln or "-->" in ln or ln.startswith(("WEBVTT", "Kind:", "Language:")) or ln in seen:
+            continue
+        seen.add(ln)
+        out.append(ln)                                              # auto-sub tekrarlarını ayıkla
+    for f in files:
+        os.remove(f)
+    return " ".join(out)[:4000]
+
+
+def teardown(outlier):
+    t = transcript(outlier["url"])
+    return llm(skill("oot", "reel-analyzer") + "\n\n" + context(),
+               f"""Reel to model: "{outlier['title']}" ({outlier['multiple']}x its channel median, formula: {outlier['formula']}).
+Transcript: {t or "(no transcript available — work from title + formula only, say so)"}
+Return JSON: {{"hook":"...","hook_why":"...","beats":[{{"t":"0-3s","said":"...","shown":"..."}}],
+"pacing":"...","visual_technique":"...","reusable_moves":["...","..."],"remake_plan":"..."}}
+Model the TECHNIQUE, never reproduce the creator's words.""")
+
+
+# ---------------- 4. HOOK MADENCİLİĞİ (hook-mining) ----------------
+def mine(outliers):
+    p = DATA / f"hooks_{TODAY}.csv"
+    with open(p, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["hook", "score"])
+        for o in outliers:
+            w.writerow([o["title"], o["multiple"]])                 # performans = kendi medyanına göre multiple
+    sh([PY, OOT / "hook-mining" / "mine_hooks.py", p, "--top", "40"])
+    return json.loads((DATA / f"hooks_{TODAY}.mined.json").read_text(encoding="utf-8"))
+
+
+# ---------------- 5. SEÇİM + STRATEJİ (going-viral) ----------------
+def pick_ideas(outliers, td, dem, market, goals):
+    r = llm(skill("oot", "going-viral") + "\n\n" + skill("yt", "yt-viral") + "\n\n" + context(),
+            f"""Top outliers: {json.dumps(outliers[:5], ensure_ascii=False)}
+Teardown of #1: {json.dumps(td, ensure_ascii=False)}
+What people ask today (Reddit): {json.dumps(dem[:10], ensure_ascii=False)}
+Today's REAL market data (only these numbers, never invent): {json.dumps(market, ensure_ascii=False)}
+Make {len(goals)} ideas. Idea i has goal = {goals}[i]. Each reuses a proven STRUCTURE on today's data,
+answers a real audience question where possible, and states the emotion that drives its goal.
+"ticker" must be one of the market data keys and is the asset the video is about.
+JSON: {{"ideas":[{{"idea":"...","goal":"SHARE|SAVE|FOLLOW","emotion":"...","formula":"...","ticker":"...",
+"structure_from":"<outlier url>","payoff_withheld_until_end":"...","data_points":["..."]}}]}}""")
+    return [i for i in r.get("ideas", []) if isinstance(i, dict) and i.get("idea")][:len(goals)]
+
+
+# ---------------- 6. HOOK (viral-hook-writer + hook-mining remix) → hookscore kapısı ----------------
+def best_hook(idea, mined):
+    buckets = {k: [h["hook"] for h in v[:3]] for k, v in mined.get("buckets", {}).items()}
+    for _ in range(MAX_TRIES):
+        hooks = llm(skill("oot", "viral-hook-writer") + "\n\n" + skill("oot", "hook-mining") + "\n\n"
+                    + skill("yt", "yt-script") + "\n\n" + context(),
+                    f"""Idea: {json.dumps(idea, ensure_ascii=False)}
+Proven hook skeletons in our niche (by pattern): {json.dumps(buckets, ensure_ascii=False)}
+Power words earning their keep: {mined.get('power_word_frequency', [])[:15]}
+Write 10 hooks (9-16 words, spoken). At least 5 are REMIXES: keep a proven skeleton, swap ONLY power words,
+never verbatim. Address the viewer directly, name what it costs them, leave a gap open. Use real numbers
+from the idea only. Each has a 3-5 word on-screen version.
+JSON: {{"hooks":[{{"line":"...","on_screen":"...","pattern":"..."}}]}}""", creative=True).get("hooks", [])
+        hooks = [h for h in hooks if isinstance(h, dict) and h.get("line")]
+        if not hooks:
+            continue
+        by_line = {h["line"].replace("\n", " ").strip(): h for h in hooks}
+        top = score_hooks(list(by_line))[0]
+        log(f"  hook {top['verdict']}: {top['hook'][:70]}")
+        if top["verdict"] >= HOOK_MIN:
+            return {**top, "on_screen": by_line.get(top["hook"], {}).get("on_screen", "")}
+    return None
+
+
+# ---------------- 7-8. SCRIPT + EKRAN YAZISI (reel-scripter/builder, yt-shorts, on-screen-text) ----------------
+def write_script(idea, hook, td, market):
+    s = llm(skill("oot", "reel-scripter") + "\n\n" + skill("oot", "reel-builder")[:3000] + "\n\n"
+            + skill("yt", "yt-shorts") + "\n\n" + skill("oot", "on-screen-text-writer") + "\n\n" + context(),
+            f"""Idea: {json.dumps(idea, ensure_ascii=False)}
+Market data (only numbers you may use): {json.dumps(market, ensure_ascii=False)}
+Winning hook (first spoken line, verbatim): {hook['hook']}   On-screen at frame 0: {hook['on_screen']}
+Structure to model (NOT words): {json.dumps(td.get('beats', []), ensure_ascii=False)} · pacing: {td.get('pacing', '')}
+Write a 25-40s vertical Short (75-100 words), 5-8 beats. Frame 0 = moving chart. Claim lands ~1.5s.
+Re-hook at ~9s and ~15s. Tease the payoff in the hook, deliver it in the LAST beat.
+Every beat: spoken line + on-screen text (headline, <=7 words, one EMPHASIS word that appears in it) +
+visual for the renderer: chart (price line of "ticker"), counter (big animated number from the osd),
+list (asset tiles), compare (5-day bars of "ticker" vs "compare_with"), text.
+"ticker"/"compare_with" must be market data keys. Last line loops into the first. One CTA.
+Final beat on-screen: "{DISCLAIMER}".
+JSON: {{"beats":[{{"say":"...","osd":"...","emphasis":"...","visual":"chart|counter|list|compare|text","ticker":"..."}}],"word_count":0}}""",
+            creative=True)
+    beats = [b for b in s.get("beats", []) if isinstance(b, dict) and (b.get("say") or "").strip()]
+    beats[0:1] = [{**beats[0], "say": hook["hook"]}] if beats else []   # hook birebir ilk cümle
+    s["beats"] = beats
+    words = sum(len(b["say"].split()) for b in beats)
+    s["word_count"] = words
+    s["mute_pass"] = bool(beats) and all(b.get("osd") and len(b["osd"].split()) <= MAX_OSD_WORDS for b in beats)
+    s["length_pass"] = 45 <= words <= 130
+    return s
+
+
+# ---------------- 9. PAKET (yt-package + cover-thumbnail-brief) → title.py kapısı ----------------
+def package(idea, script):
+    for _ in range(MAX_TRIES):
+        cand = llm(skill("yt", "yt-package") + "\n\n" + skill("oot", "cover-thumbnail-brief") + "\n\n" + context(),
+                   f"""Idea: {idea['idea']}  Hook: {script['beats'][0]['say']}
+TEN title+cover pairs. Title <=40 characters (hard limit: the mobile feed cuts at 40), carries a number/name/date from the idea,
+subject in the first three words, at most one ALL-CAPS word, no hype adjectives.
+Cover text max 3 words, different words from title, legible at 150px, clear of top 12% / bottom 20%.
+JSON: {{"pairs":[{{"title":"...","thumb":"...","visual_brief":"..."}}]}}""").get("pairs", [])
+        best = None
+        for c in cand:
+            if not isinstance(c, dict) or not c.get("title"):
+                continue
+            r = check_title(c["title"], c.get("thumb"))
+            if not best or r["score"] > best["score"]:
+                best = {**r, "thumb": c.get("thumb", ""), "visual_brief": c.get("visual_brief", "")}
+        if best:
+            log(f"  title {best['score']}: {best['title']}  issues={[i[0] for i in best['issues']]}")
+        if best and best["score"] >= TITLE_MIN and not best["issues"]:
+            return best
+    return None
+
+
+# ---------------- 10. SEO (yt-seo) ----------------
+def seo(idea, pkg, script):
+    s = llm(skill("yt", "yt-seo") + "\n\n" + context(),
+            f"""Title: {pkg['title']}  Idea: {idea['idea']}  Goal: {idea['goal']}
+Script: {json.dumps(script['beats'], ensure_ascii=False)}
+JSON: {{
+ "youtube": {{"queries":["q1","q2","q3"],"description":"2 lines = what viewer gets, then '{DISCLAIMER}', then #shorts","tags":["<=15"]}}
+}}""")
+    yt = s["youtube"]
+    yt["tags"] = [t for t in yt.get("tags", []) if isinstance(t, str)][:15]
+    if DISCLAIMER.lower() not in yt["description"].lower():
+        yt["description"] += f"\n{DISCLAIMER}."
+    if "#shorts" not in yt["description"].lower():
+        yt["description"] += "\n#shorts"
+    head = (pkg["title"] + " " + yt["description"][:200]).lower()
+    yt["query_test_pass"] = any(all(w in head for w in q.lower().split()[:2]) for q in yt.get("queries", []))
+    return s
+
+
+# ---------------- RENDER + YÜKLEME ----------------
+def render(job, i, snap):
+    props = OUT / f"{TODAY}_{i}.json"
+    props.write_text(json.dumps(job, ensure_ascii=False, indent=1), encoding="utf-8")
+    return renderer.render(job["script"]["beats"], snap, OUT / f"{TODAY}_{i}.mp4", job["idea"].get("ticker"))
+
+
+def upload_youtube(mp4, pkg, yt, publish_at):
+    if DRY:
+        log(f"  [dry-run] yükleme atlandı: {mp4.name} → {publish_at}")
+        return "DRYRUN"
+    from googleapiclient.discovery import build
+    from googleapiclient.http import MediaFileUpload
+    api = build("youtube", "v3", credentials=yt_creds(), cache_discovery=False)
+    body = {"snippet": {"title": pkg["title"][:100], "description": yt["description"][:4900],
+                        "tags": yt["tags"], "categoryId": "25",
+                        "defaultLanguage": CONTENT_LANG, "defaultAudioLanguage": CONTENT_LANG},
+            "status": {"selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}}
+    mode = os.environ.get("YOUTUBE_PRIVACY", "unlisted")      # scheduled = slot saatinde herkese açık
+    if mode == "scheduled":
+        body["status"].update(privacyStatus="private", publishAt=publish_at)
+    else:
+        body["status"]["privacyStatus"] = mode                # unlisted / private: önce elle izle
+    vid = api.videos().insert(part="snippet,status", body=body,
+                              media_body=MediaFileUpload(str(mp4), resumable=True)).execute()["id"]
+    log(f"  yüklendi https://youtu.be/{vid} (yayın {publish_at})")
+    return vid
+
+
+# ---------------- 11. HAFIZA (ai-brain) ----------------
+def brain_save(job):
+    slug = re.sub(r"[^a-z0-9]+", "-", job["package"]["title"].lower())[:40].strip("-") or "video"
+    name = f"{TODAY}-{slug}"
+    (BRAIN / f"{name}.md").write_text(f"""# Video — {TODAY} — {job['package']['title']}
+#ai-brain #video #{job['idea']['goal'].lower()} #{job['hook']['formula'].lower().replace(' ', '-')}
+Related:: [[MOC]]
+## Decisions
+- Goal {job['idea']['goal']} / emotion {job['idea'].get('emotion', '')} — structure from {job['idea'].get('structure_from', '')}
+- Hook ({job['hook']['verdict']}): {job['hook']['hook']}
+- Title ({job['package']['score']}): {job['package']['title']} · cover "{job['package']['thumb']}"
+## Built
+- youtu.be/{job.get('video_id', '')}
+## Open
+- [ ] Pazar retention sonucu → lessons.md
+""", encoding="utf-8")
+    with open(BRAIN / "MOC.md", "a", encoding="utf-8") as f:
+        f.write(f"- [[{name}]] — {job['idea']['goal']} · hook {job['hook']['verdict']}\n")
+
+
+# ---------------- ÜRETİM + YEDEK ----------------
+def produce(idea, mined, td, market):
+    hook = best_hook(idea, mined)
+    if not hook:
+        return None, f"hook kapısı (<{HOOK_MIN})"
+    script = write_script(idea, hook, td, market)
+    if not script["mute_pass"]:
+        return None, "mute kapısı (ekran yazısı)"
+    if not script["length_pass"]:
+        return None, f"script uzunluğu ({script['word_count']} kelime)"
+    pkg = package(idea, script)
+    if not pkg:
+        return None, f"başlık kapısı (<{TITLE_MIN})"
+    return {"idea": idea, "hook": hook, "script": script, "package": pkg,
+            "platforms": {"youtube": seo(idea, pkg, script)["youtube"]}, "teardown": td}, ""
+
+
+def fallback_recap(snap, i, publish_at):
+    """Güvenli format: günün piyasa özeti — LLM'e ve puan kapılarına bağlı değil, slot asla boş kalmaz."""
+    beats, star = renderer.recap_beats(snap)
+    mp4 = renderer.render(beats, snap, OUT / f"{TODAY}_fallback_{i}.mp4", star)
+    m = snap["tickers"][star]
+    names = ", ".join(v["name"] for v in snap["tickers"].values())
+    if TR:
+        title = f"{m['name']} {renderer.pct_str(m['change_pct'], 2)} · Piyasa Özeti {datetime.date.today():%d.%m.%Y}"
+        yt = {"description": f"Günün piyasa özeti: {names}.\n{DISCLAIMER}. Veriler gecikmelidir.\n#shorts",
+              "tags": ["borsa", "piyasa", "kripto", "bitcoin", "altın", "dolar", "bist100", "piyasa özeti"]}
+    else:
+        title = f"{m['name']} {renderer.pct_str(m['change_pct'], 2)} · Market Recap {datetime.date.today():%b %d}"
+        yt = {"description": f"Today's market recap: {names}.\n{DISCLAIMER}. Data may be delayed.\n#shorts",
+              "tags": ["stock market", "market recap", "bitcoin", "crypto", "stocks", "investing", "nasdaq", "gold"]}
+    return upload_youtube(mp4, {"title": title}, yt, publish_at)
+
+
+def main():
+    n = int(sys.argv[sys.argv.index("--videos") + 1]) if "--videos" in sys.argv else 2
+    slots = SLOTS[:n]
+    log(f"=== daily_viral {TODAY} · {n} video{' · DRY-RUN' if DRY else ''} ===")
+    snap = retry(market_snapshot)
+    market = market_brief(snap)
+    report = []
+    pool, mined, td = [], {"buckets": {}, "power_word_frequency": []}, {}
+    if "--fallback-only" not in sys.argv:
+        try:
+            dem = retry(demand)
+            outliers = retry(discover)
+            if outliers:
+                td = retry(teardown, outliers[0])
+                mined = mine(outliers)
+                goals = [g for _, g in slots]
+                # slot başına 3 aday fikir (1 asıl + 2 yedek)
+                pool = retry(pick_ideas, outliers, td, dem, market, goals * 3)
+                log(f"fikir havuzu: {len(pool)}")
+            else:
+                report.append("⚠️ Hiç outlier yok (channels.txt boş ya da erişilemedi) → güvenli format")
+        except Exception as e:
+            log(traceback.format_exc())
+            report.append(f"⚠️ keşif/seçim hatası: {str(e)[:200]} → güvenli format")
+    for i, (hhmm, goal) in enumerate(slots):
+        publish_at = publish_time(hhmm)
+        done = False
+        cands = [x for x in pool if x.get("goal") == goal][:3] or pool[i::len(slots)][:3]
+        for idea in cands:
+            log(f"[{goal}] {idea['idea'][:80]}")
+            try:
+                job, why = produce(idea, mined, td, market)
+                if not job:
+                    report.append(f"↻ {idea['idea'][:40]} — {why}, yedeğe geçildi")
+                    continue
+                mp4 = retry(render, job, i, snap)
+                job["video_id"] = retry(upload_youtube, mp4, job["package"], job["platforms"]["youtube"], publish_at)
+                job["publish_at"] = publish_at
+                (DATA / f"job_{TODAY}_{i}.json").write_text(json.dumps(job, ensure_ascii=False, indent=1), encoding="utf-8")
+                brain_save(job)
+                report.append(f"✅ [{goal}] {job['package']['title']}\n   hook {job['hook']['verdict']} · title "
+                              f"{job['package']['score']} · {publish_at}\n   https://youtu.be/{job['video_id']}")
+                done = True
+                break
+            except Exception as e:
+                log(traceback.format_exc())
+                report.append(f"↻ {idea['idea'][:40]} — hata: {str(e)[:150]}")
+        if not done:                                                # slot asla boş kalmaz
+            try:
+                vid = retry(fallback_recap, snap, i, publish_at)
+                report.append(f"🛟 [{goal}] güvenli format (piyasa özeti) → https://youtu.be/{vid}")
+            except Exception as e:
+                log(traceback.format_exc())
+                report.append(f"❌ [{goal}] güvenli format da başarısız: {str(e)[:200]}")
+    msg = f"🎬 {TODAY} günlük viral (bilgi amaçlı, işlem gerekmez)\n\n" + "\n\n".join(report)
+    log(msg)
+    tg(msg)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except Exception as e:
+        log(traceback.format_exc())
+        tg(f"❌ daily_viral {TODAY} çöktü: {str(e)[:500]}")
+        sys.exit(1)

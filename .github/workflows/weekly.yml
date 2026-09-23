@@ -1,0 +1,56 @@
+name: Weekly review (lessons.md)
+
+on:
+  schedule:
+    # Monday 02:00 UTC = Sunday 22:00 New York
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: viral-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CONTENT_LANG: ${{ vars.CONTENT_LANG || 'en' }}
+      LLM_BACKEND: anthropic
+      ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL || 'claude-opus-5' }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+      TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+      PYTHONUTF8: "1"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Skill repos + Python deps
+        run: |
+          git clone --depth 1 https://github.com/Jakeschincariol/youtube-agent-skill.git vendor/youtube-agent-skill
+          git clone --depth 1 https://github.com/Ootto-AI/claude-content-skills.git vendor/claude-content-skills
+          pip install --disable-pip-version-check -U -r requirements.txt
+
+      - run: python weekly_review.py
+
+      - name: Commit lessons
+        if: always()
+        run: |
+          git config user.name "viral-bot"
+          git config user.email "viral-bot@users.noreply.github.com"
+          git add state/ 2>/dev/null || true
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "lessons: $(date -u +%F) weekly review"
+          git pull --rebase --autostash && git push

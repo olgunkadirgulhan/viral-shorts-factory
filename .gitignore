@@ -1,0 +1,14 @@
+.env
+.python-path
+state/token.json
+state/client_secret.json
+vendor/
+out/
+logs/
+data/collected_*
+data/hooks_*
+data/sub_*
+data/ret_*
+data/market_test.json
+__pycache__/
+.claude/
