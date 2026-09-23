@@ -1,0 +1,26 @@
+name: LLM health check
+
+on:
+  workflow_dispatch:
+    inputs:
+      models:
+        description: Space-separated model ids (empty = default list)
+        default: ""
+
+permissions:
+  contents: read
+  models: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q requests
+      - run: python tools/llm_probe.py ${{ inputs.models }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
