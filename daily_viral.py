@@ -388,6 +388,9 @@ def fallback_recap(snap, i, publish_at):
               "tags": ["stock market", "market recap", "bitcoin", "crypto", "stocks", "investing", "nasdaq", "gold"]}
     vid = upload_youtube(mp4, {"title": title}, yt, publish_at)
     add_to_playlist(vid, key="recap")
+    if not DRY:                                      # aynı gün başka bir çalışma ikinci özet yüklemesin
+        (DATA / f"recap_{TODAY}.json").write_text(json.dumps({"video_id": vid, "publish_at": publish_at}),
+                                                   encoding="utf-8")
     return vid
 
 
@@ -415,7 +418,8 @@ def main():
         except Exception as e:
             log(traceback.format_exc())
             report.append(f"⚠️ keşif/seçim hatası: {str(e)[:200]} → güvenli format")
-    used, tickers_today, quota_hit, recap_done = set(), set(), False, False
+    used, tickers_today, quota_hit = set(), set(), False
+    recap_done = (DATA / f"recap_{TODAY}.json").exists()
     for i, (hhmm, goal) in enumerate(slots):
         if quota_hit:
             report.append(f"⏸ [{goal}] {hhmm} atlandı — günlük YouTube kotası doldu, yarın devam")
