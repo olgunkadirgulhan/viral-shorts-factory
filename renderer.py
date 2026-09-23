@@ -167,15 +167,18 @@ def draw_chart(d, series, progress, box, alpha=255, label=None, up=None):
 
 
 def draw_headline(d, osd, emphasis, t_in):
+    """Başlık her zaman büyük harf ve en fazla 2 satır: sığmazsa küçülür. Dönen: alt kenarın y'si."""
     if not osd:
-        return
-    size = int(92 * (0.82 + 0.18 * ease(t_in / 0.25)))
-    f = font(size)
+        return HEAD_Y
     key = lambda w: (w.strip(".,!?:;%()").replace("I", "ı").replace("İ", "i") if TR else w.strip(".,!?:;%()")).lower()
     em = {key(w) for w in (emphasis or "").split()}
+    osd = (osd.replace("i", "İ").replace("ı", "I") if TR else osd).upper()   # TR büyük harf kuralı
+    base = 92
+    while base > 52 and len(wrap(d, osd, font(base), W - 160)) > 2:
+        base -= 6
+    size = int(base * (0.82 + 0.18 * ease(t_in / 0.25)))
+    f = font(size)
     y = HEAD_Y
-    if len(osd) < 40:
-        osd = (osd.replace("i", "İ").replace("ı", "I") if TR else osd).upper()   # TR büyük harf kuralı
     for line in wrap(d, osd, f, W - 160):
         ws = line.split()
         widths = [d.textlength(w + " ", font=f) for w in ws]
@@ -186,11 +189,12 @@ def draw_headline(d, osd, emphasis, t_in):
             d.text((x, y), w, font=f, fill=ACC if hit else FG)
             x += wd
         y += int(size * 1.12)
+    return y
 
 
-def draw_caption(d, say):
+def draw_caption(d, say, top=CAP_Y):
     f = font(44, bold=False)
-    y = CAP_Y
+    y = max(CAP_Y, top + 24)                         # başlık uzunsa altyazı aşağı kayar, üst üste binmez
     for line in wrap(d, say, f, W - 200)[:3]:
         d.text(((W - d.textlength(line, font=f)) / 2, y), line, font=f, fill=(226, 232, 240))
         y += 56
@@ -287,6 +291,8 @@ def frame(bg, beat, market, ticker, t_beat, dur_beat, t_total, dur_total):
         d.text((80, 140), CHANNEL, font=font(40), fill=MUTED)
     d.text((W - 80 - d.textlength(market[tk]["name"], font=font(40)), 140), market[tk]["name"], font=font(40), fill=MUTED)
 
+    if visual == "counter" and not re.search(r"\d", beat.get("osd", "")):
+        visual = "chart"                             # sayaç yalnızca ekran yazısında rakam varsa: alakasız sayı gösterme
     if visual == "chart":
         draw_chart(d, series, min(1, prog / 0.7), VIS, 255, _ticker_label(market[tk]), market[tk]["change_pct"] >= 0)
     else:
@@ -297,11 +303,10 @@ def frame(bg, beat, market, ticker, t_beat, dur_beat, t_total, dur_total):
             other = beat.get("compare_with") if beat.get("compare_with") in market else next(k for k in keys if k != tk)
             draw_compare(d, market, [tk, other], prog)
         elif visual == "counter":
-            if not draw_counter(d, beat.get("osd", "") + " " + beat.get("say", ""), prog):
-                draw_counter(d, f"{market[tk]['change_pct']}%", prog)
+            draw_counter(d, beat.get("osd", ""), prog)
 
-    draw_headline(d, beat.get("osd", ""), beat.get("emphasis", ""), t_beat)
-    draw_caption(d, beat.get("say", ""))
+    bottom = draw_headline(d, beat.get("osd", ""), beat.get("emphasis", ""), t_beat)
+    draw_caption(d, beat.get("say", ""), bottom)
     f = font(34, bold=False)
     d.text(((W - d.textlength(DISCLAIMER, font=f)) / 2, DISC_Y), DISCLAIMER, font=f, fill=MUTED)
     return img

@@ -50,8 +50,17 @@ def market_snapshot():
 
 def market_brief(snap):
     """LLM'e giden hali: seri yok, sadece rakamlar (token tasarrufu)."""
-    return {k: {x: v[x] for x in ("name", "price", "change_pct", "change_5d_pct", "as_of")}
+    return {k: {x: v.get(x) for x in ("name", "price", "change_pct", "change_5d_pct", "as_of", "news")}
             for k, v in snap["tickers"].items()}
+
+
+FACT_RULES = """FACT RULES (a finance channel lives or dies on this):
+- Every number comes from the market data above. Never round a number into a different claim.
+- A CAUSE ("why it moved") may only come from the "news" headlines/summaries of that asset or of the indexes.
+  Attribute it ("according to today's headlines", "reports say"). If no headline explains the move, do not
+  invent one: say the cause isn't clear yet and focus on what the move means for the viewer.
+- Never claim fund flows, trading volume, institutional buying, insider activity, analyst actions or
+  predictions unless a headline in the data says exactly that. No price targets, no buy/sell advice."""
 
 
 # ---------------- 1. TALEP (agent-reach → Reddit) ----------------
@@ -189,6 +198,8 @@ Make {len(goals)} ideas. Idea i has goal = {goals}[i]. Each reuses a proven STRU
 answers a real audience question where possible, and states the emotion that drives its goal.
 "ticker" must be one of the market data keys and is the asset the video is about.
 Every idea must fit "What this channel covers" in the voice profile; never pick a topic it excludes.
+Prefer moves that today's "news" headlines actually explain: the channel promises the WHY.
+{FACT_RULES}
 JSON: {{"ideas":[{{"idea":"...","goal":"SHARE|SAVE|FOLLOW","emotion":"...","formula":"...","ticker":"...",
 "structure_from":"<outlier url>","payoff_withheld_until_end":"...","data_points":["..."]}}]}}""")
     return [i for i in r.get("ideas", []) if isinstance(i, dict) and i.get("idea")][:len(goals)]
@@ -275,11 +286,19 @@ Re-hook at ~9s and ~15s. Tease the payoff in the hook, deliver it in the LAST be
 Every beat: spoken line + on-screen text (headline, <=7 words, one EMPHASIS word that appears in it) +
 visual for the renderer: chart (price line of "ticker"), counter (big animated number from the osd),
 list (asset tiles), compare (5-day bars of "ticker" vs "compare_with"), text.
-"ticker"/"compare_with" must be market data keys. Last line loops into the first. One CTA.
-Final beat on-screen: "{DISCLAIMER}".
+"ticker"/"compare_with" must be market data keys. Use "counter" ONLY when that beat's osd contains the number.
+Last line loops into the first. One CTA. Final beat on-screen: "{DISCLAIMER}".
+Plain text only: no markdown, no asterisks; put the emphasis word in "emphasis" instead.
+{FACT_RULES}
 JSON: {{"beats":[{{"say":"...","osd":"...","emphasis":"...","visual":"chart|counter|list|compare|text","ticker":"..."}}],"word_count":0}}""",
             creative=True)
     beats = [b for b in s.get("beats", []) if isinstance(b, dict) and (b.get("say") or "").strip()]
+    for b in beats:                                   # model markdown yazarsa: **kelime** → vurgu, yıldızlar ekrana çıkmasın
+        bold = re.findall(r"\*\*(.+?)\*\*", b.get("osd") or "")
+        if bold and not b.get("emphasis"):
+            b["emphasis"] = bold[0]
+        for k in ("osd", "say", "emphasis"):
+            b[k] = re.sub(r"[*_`#]+", "", b.get(k) or "").strip()
     beats[0:1] = [{**beats[0], "say": hook["hook"]}] if beats else []   # hook birebir ilk cümle
     s["beats"] = beats
     words = sum(len(b["say"].split()) for b in beats)
@@ -512,8 +531,10 @@ def main():
                 job["publish_at"] = publish_at
                 add_to_playlist(job["video_id"], ticker=job["idea"].get("ticker"))
                 tickers_today.add(job["idea"].get("ticker"))
-                (DATA / f"job_{TODAY}_{i}.json").write_text(json.dumps(job, ensure_ascii=False, indent=1), encoding="utf-8")
-                brain_save(job)
+                if not DRY:                                 # test çalışmaları hafızayı / weekly verisini kirletmesin
+                    (DATA / f"job_{TODAY}_{i}.json").write_text(json.dumps(job, ensure_ascii=False, indent=1),
+                                                                encoding="utf-8")
+                    brain_save(job)
                 report.append(f"✅ [{goal}] {job['package']['title']}\n   hook {job['hook']['verdict']} · title "
                               f"{job['package']['score']} · {publish_at}\n   https://youtu.be/{job['video_id']}")
                 done = True

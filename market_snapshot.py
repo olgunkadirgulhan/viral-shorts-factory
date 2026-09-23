@@ -17,8 +17,31 @@ NAMES = {"BTC-USD": "Bitcoin", "ETH-USD": "Ethereum", "SOL-USD": "Solana", "XU10
 TICKERS = os.environ.get("MARKET_TICKERS", "^GSPC,^IXIC,^DJI,GC=F,CL=F,DX-Y.NYB,NVDA,AAPL,MSFT,TSLA,AMZN,META").split(",")
 
 
+def news(t, limit=4, max_age_h=48):
+    """Son 48 saatin haber başlıkları: 'neden hareket etti' sorusunun tek gerçek kaynağı (uydurma yok)."""
+    out, now = [], datetime.datetime.now(datetime.timezone.utc)
+    try:
+        for it in t.news or []:
+            c = it.get("content", it)
+            title = (c.get("title") or "").strip()
+            pub = c.get("pubDate") or ""
+            try:
+                age_h = (now - datetime.datetime.fromisoformat(pub.replace("Z", "+00:00"))).total_seconds() / 3600
+            except ValueError:
+                age_h = 0
+            if title and age_h <= max_age_h:
+                out.append({"title": title, "summary": (c.get("summary") or "")[:220],
+                            "source": (c.get("provider") or {}).get("displayName", ""), "published": pub[:16]})
+            if len(out) >= limit:
+                break
+    except Exception as e:
+        print(f"news skip: {e}", file=sys.stderr)
+    return out
+
+
 def snap(sym):
-    h = yf.Ticker(sym).history(period="2mo", interval="1d")["Close"].dropna()
+    t = yf.Ticker(sym)
+    h = t.history(period="2mo", interval="1d")["Close"].dropna()
     if len(h) < 6:
         return None
     last, prev, wk = float(h.iloc[-1]), float(h.iloc[-2]), float(h.iloc[-6])
@@ -26,6 +49,7 @@ def snap(sym):
             "change_pct": round((last / prev - 1) * 100, 2),
             "change_5d_pct": round((last / wk - 1) * 100, 2),
             "as_of": str(h.index[-1].date()),
+            "news": news(t),
             "series": [round(float(x), 4) for x in h.iloc[-30:]]}
 
 
