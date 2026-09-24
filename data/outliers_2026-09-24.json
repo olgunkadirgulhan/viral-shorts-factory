@@ -1,0 +1,338 @@
+{
+ "outliers": [
+  {
+   "channel": "Forbes",
+   "title": "White House Launches 'Trump TV' After President's Press Ban",
+   "views": 166763,
+   "median": 4054,
+   "multiple": 41.14,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/QTv2DDx7IZI"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "Why Trump Merchandise Sales Are Taking a Hit",
+   "views": 1487149,
+   "median": 41266,
+   "multiple": 36.04,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/VaWg8b5oN6k"
+  },
+  {
+   "channel": "Forbes",
+   "title": "White House Launches 'Trump TV' After President's Press Ban",
+   "views": 100118,
+   "median": 4054,
+   "multiple": 24.7,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/iP12bgz5dB0"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "First look at Meta's new VR glasses",
+   "views": 62178,
+   "median": 2860,
+   "multiple": 21.74,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/l3nJcwuthDk"
+  },
+  {
+   "channel": "CNBC Make It",
+   "title": "How Costco keeps gas so cheap",
+   "views": 92671,
+   "median": 5365,
+   "multiple": 17.27,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/6f5rmIYBERY"
+  },
+  {
+   "channel": "The Compound",
+   "title": "Josh Brown on Apple's Foldable iPhone",
+   "views": 64090,
+   "median": 4168,
+   "multiple": 15.38,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/Uou5HxG1msM"
+  },
+  {
+   "channel": "MarketBeat",
+   "title": "Pelosi Bought What!? 5 Massive Congressional Stock Trades You Need to See",
+   "views": 246214,
+   "median": 20543,
+   "multiple": 11.99,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4vP5tjYd3n4"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "I Tried Apple’s First Folding iPhone. Here Are 3 Takeaways.",
+   "views": 398369,
+   "median": 41266,
+   "multiple": 9.65,
+   "formula": "The List",
+   "url": "https://www.youtube.com/shorts/aEuswJGYQ4U"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "How Twinkies Became a $5 Billion Problem",
+   "views": 384457,
+   "median": 41266,
+   "multiple": 9.32,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/QOiWrD5ZIW4"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Zuckerberg Adds $25 Billion to Wealth as Meta Launches Muse",
+   "views": 35603,
+   "median": 4054,
+   "multiple": 8.78,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/dBcDvEmIDnY"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Buying A House In Cash?!",
+   "views": 276961,
+   "median": 33153,
+   "multiple": 8.35,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/OiSZT6xESdA"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "China Is Behind High Gas Prices",
+   "views": 280639,
+   "median": 37137,
+   "multiple": 7.56,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/w3J7yRovEF0"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "10-year Treasury yield rockets to 19-year high",
+   "views": 17838,
+   "median": 2860,
+   "multiple": 6.24,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/uNm_0C1rg2c"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Jeff Bezos' Amazon shuts down Mark Zuckberg's 'Meta Muse'",
+   "views": 75071,
+   "median": 12839,
+   "multiple": 5.85,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/oRP3YINZviU"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "You Have 5 Years Left To Get Rich",
+   "views": 193533,
+   "median": 37137,
+   "multiple": 5.21,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/cFugga5J1t0"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Everything Leads To a Financial Repression",
+   "views": 189420,
+   "median": 37137,
+   "multiple": 5.1,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/7VvnkGr0aV0"
+  },
+  {
+   "channel": "The Compound",
+   "title": "The Tech Bull Market Is Just Getting Started",
+   "views": 20368,
+   "median": 4168,
+   "multiple": 4.89,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/hkG6Qizd5oM"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Scott Galloway reacts to Meta's new AI assistant Muse",
+   "views": 56284,
+   "median": 12839,
+   "multiple": 4.38,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/5wH7wrTM2z8"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Zuckerberg's Push For 'Personal Superintelligence' Adds $25 Billion To His Fortune",
+   "views": 17071,
+   "median": 4054,
+   "multiple": 4.21,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/JfCBYi7YdQE"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Ranking The BEST Credit Cards 💳",
+   "views": 133640,
+   "median": 33153,
+   "multiple": 4.03,
+   "formula": "The Superlative",
+   "url": "https://www.youtube.com/shorts/K7UvJQsjMOM"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "The Federal Reserve Just Raised Interest Rates For The First Time Since 2023",
+   "views": 297896,
+   "median": 74490,
+   "multiple": 4.0,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/2gOubOLfU8E"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "What does this mean for mortgages?",
+   "views": 48782,
+   "median": 12839,
+   "multiple": 3.8,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/CK_imcmQ6sU"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Average homes in America now cost 7x household income",
+   "views": 46141,
+   "median": 12839,
+   "multiple": 3.59,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/lMT71O_YYD4"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "The EU and Canada just got closer",
+   "views": 45206,
+   "median": 12839,
+   "multiple": 3.52,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/wn1A3aStHss"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The AI Bubble Is Getting Bigger",
+   "views": 127800,
+   "median": 37137,
+   "multiple": 3.44,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/90f8hvkKoUI"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Former NFL player Ryan Clark on building Pivot25 Productions",
+   "views": 9758,
+   "median": 2860,
+   "multiple": 3.41,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/ECsZHhAg9R0"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Rapper Gunna On Building Generational Wealth And Entrepreneurship",
+   "views": 13787,
+   "median": 4054,
+   "multiple": 3.4,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/oUsJKkf67-0"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "CEOs of OpenAI, Anthropic and Hugging Face to brief UN Security Council",
+   "views": 9690,
+   "median": 2860,
+   "multiple": 3.39,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/NCD2PQ07-3I"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The U.S. Is Getting Betrayed (And It Plans To Fight Back)",
+   "views": 123453,
+   "median": 37137,
+   "multiple": 3.32,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/800SfOPy--k"
+  },
+  {
+   "channel": "The Compound",
+   "title": "Why the Bears Keep Missing This Market",
+   "views": 13652,
+   "median": 4168,
+   "multiple": 3.28,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/NfzKHHFN1OM"
+  },
+  {
+   "channel": "Fundstrat",
+   "title": "Tom Lee explains why Nvidia still isn't expensive right now.",
+   "views": 162670,
+   "median": 49792,
+   "multiple": 3.27,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/26qXd_8mYHs"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "How Justin Waller Has A 6-Pack 🤣",
+   "views": 104070,
+   "median": 33153,
+   "multiple": 3.14,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/vFiKY8Xz3w4"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Americans Don't Have Savings Anymore",
+   "views": 116077,
+   "median": 37137,
+   "multiple": 3.13,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4Y1qrFjW9sU"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "4 Signs You'll Hit 1 Million in 10 Years Instead Of 40",
+   "views": 232222,
+   "median": 74490,
+   "multiple": 3.12,
+   "formula": "The List",
+   "url": "https://www.youtube.com/shorts/YGnjSONx5Us"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Why Oil Prices Are Exploding",
+   "views": 115001,
+   "median": 37137,
+   "multiple": 3.1,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/46VGb1SY7I0"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "First Lady Melania Trump rings the NYSE opening bell",
+   "views": 8816,
+   "median": 2860,
+   "multiple": 3.08,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/noMYcKp1EPY"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "If you feel behind financially... here's some data on why.",
+   "views": 225259,
+   "median": 74490,
+   "multiple": 3.02,
+   "formula": "The Direct Address",
+   "url": "https://www.youtube.com/shorts/bFg4LzgiEgM"
+  }
+ ],
+ "skipped_thin_channels": []
+}
