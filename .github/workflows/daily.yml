@@ -2,8 +2,11 @@ name: Daily viral short
 
 on:
   schedule:
-    # 09:00 UTC = 05:00 New York, after the 07:00 UTC quota reset. First slot is 07:00 ET: ~2h for 6 videos.
+    # 09:00 UTC = 05:00 New York, after the 07:00 UTC quota reset. GitHub sometimes delays or drops a
+    # scheduled run, so two backup triggers follow; the guard step skips them once today's videos exist.
     - cron: "0 9 * * *"
+    - cron: "0 12 * * *"
+    - cron: "0 16 * * *"
   workflow_dispatch:
     inputs:
       videos:
@@ -58,32 +61,47 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Already produced today?
+        id: guard
+        run: |
+          # a backup trigger must not produce a second batch; look at the latest main, not the trigger commit
+          git fetch -q origin main
+          done_today=$(git ls-tree --name-only origin/main data/ | grep -E "data/(job|recap)_$(date -u +%F)" || true)
+          if [ "${{ github.event_name }}" = "schedule" ] && [ -n "$done_today" ]; then
+            echo "skip=1" >> "$GITHUB_OUTPUT"; echo "today's videos already exist, nothing to do"
+          fi
+
       - uses: actions/setup-python@v5
+        if: steps.guard.outputs.skip != '1'
         with:
           python-version: "3.12"
           cache: pip
 
       - name: System packages (ffmpeg, fonts)
+        if: steps.guard.outputs.skip != '1'
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y --no-install-recommends ffmpeg fonts-liberation fonts-dejavu-core
           ffmpeg -version | head -n 1
 
       - name: Cache Piper voice (offline backup TTS)
+        if: steps.guard.outputs.skip != '1'
         uses: actions/cache@v4
         with:
           path: ~/.cache/piper-voices
           key: piper-voices-v1
 
       - name: Skill repos + Python deps (always latest yt-dlp / skills)
+        if: steps.guard.outputs.skip != '1'
         run: |
           git clone --depth 1 https://github.com/Jakeschincariol/youtube-agent-skill.git vendor/youtube-agent-skill
           git clone --depth 1 https://github.com/Ootto-AI/claude-content-skills.git vendor/claude-content-skills
           pip install --disable-pip-version-check -U -r requirements.txt
 
       - name: Produce and publish
+        if: steps.guard.outputs.skip != '1'
         run: |
-          ARGS="--videos ${{ github.event_name == 'schedule' && (vars.VIDEOS_PER_DAY || '2') || inputs.videos }}"
+          ARGS="--videos ${{ github.event_name == 'schedule' && (vars.VIDEOS_PER_DAY || '3') || inputs.videos }}"
           if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
           # Until the YouTube API audit is approved, API uploads get locked private forever.
           # Scheduled runs only render (videos come as artifacts) until PUBLISH_MODE=live is set.
