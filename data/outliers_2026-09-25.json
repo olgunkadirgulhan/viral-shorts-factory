@@ -1,0 +1,347 @@
+{
+ "outliers": [
+  {
+   "channel": "CNBC Television",
+   "title": "OpenAI says agent hacked Australian government website",
+   "views": 99066,
+   "median": 449,
+   "multiple": 220.39,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/fY_iWRq3r38"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "First impressions of Meta's new camera-free Ray-Ban Audio glasses",
+   "views": 46332,
+   "median": 449,
+   "multiple": 103.07,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/QQyr96VOC4U"
+  },
+  {
+   "channel": "Forbes",
+   "title": "White House Launches 'Trump TV' After President's Press Ban",
+   "views": 182069,
+   "median": 4186,
+   "multiple": 43.49,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/QTv2DDx7IZI"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "How Twinkies Became a $5 Billion Problem",
+   "views": 836838,
+   "median": 39073,
+   "multiple": 21.42,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/QOiWrD5ZIW4"
+  },
+  {
+   "channel": "Forbes",
+   "title": "OpenAI Agent Hacked Into Australia’s Medicare Database",
+   "views": 82942,
+   "median": 4186,
+   "multiple": 19.81,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/XL8JanoerRc"
+  },
+  {
+   "channel": "CNBC Make It",
+   "title": "How Costco keeps gas so cheap",
+   "views": 92997,
+   "median": 4985,
+   "multiple": 18.65,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/6f5rmIYBERY"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Oracle stock falls after issuing 'force majeure' notice on its data center project",
+   "views": 8383,
+   "median": 449,
+   "multiple": 18.65,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/iCKeU-lc_L0"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Oracle Stock Slides After Company Issued ‘Force Majeure’ Notice For Major Data Center Project",
+   "views": 66985,
+   "median": 4186,
+   "multiple": 16.0,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/IHUnfqjMFcc"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Steph Curry says his Li-Ning signature shoe will debut early next year",
+   "views": 7011,
+   "median": 449,
+   "multiple": 15.6,
+   "formula": "The Deadline",
+   "url": "https://www.youtube.com/shorts/z14_TvkiKlM"
+  },
+  {
+   "channel": "The Compound",
+   "title": "Josh Brown on Apple's Foldable iPhone",
+   "views": 64724,
+   "median": 4564,
+   "multiple": 14.18,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/Uou5HxG1msM"
+  },
+  {
+   "channel": "MarketBeat",
+   "title": "Pelosi Bought What!? 5 Massive Congressional Stock Trades You Need to See",
+   "views": 247703,
+   "median": 19037,
+   "multiple": 13.01,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4vP5tjYd3n4"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Zuckerberg Adds $25 Billion to Wealth as Meta Launches Muse",
+   "views": 43218,
+   "median": 4186,
+   "multiple": 10.32,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/dBcDvEmIDnY"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "I Tried Apple’s First Folding iPhone. Here Are 3 Takeaways.",
+   "views": 398793,
+   "median": 39073,
+   "multiple": 10.21,
+   "formula": "The List",
+   "url": "https://www.youtube.com/shorts/aEuswJGYQ4U"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Home Price Drops 9/25/26",
+   "views": 3880,
+   "median": 449,
+   "multiple": 8.63,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/8nVy_tcDauo"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Buying A House In Cash?!",
+   "views": 282549,
+   "median": 33409,
+   "multiple": 8.46,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/OiSZT6xESdA"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "China Is Behind High Gas Prices",
+   "views": 282941,
+   "median": 38763,
+   "multiple": 7.3,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/w3J7yRovEF0"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Ranking The BEST Credit Cards 💳",
+   "views": 223897,
+   "median": 33409,
+   "multiple": 6.7,
+   "formula": "The Superlative",
+   "url": "https://www.youtube.com/shorts/K7UvJQsjMOM"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Jeff Bezos' Amazon shuts down Mark Zuckberg's 'Meta Muse'",
+   "views": 84333,
+   "median": 13997,
+   "multiple": 6.03,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/oRP3YINZviU"
+  },
+  {
+   "channel": "Yahoo Finance",
+   "title": "Zuckerberg says you could take a call on a jet ski with the new Ray-Ban Meta Gen 3. 😂",
+   "views": 10660,
+   "median": 1819,
+   "multiple": 5.86,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/sL-MLCqJGO0"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Coldwell Banker Realty CEO on how consumers are reacting to rising mortgage rates",
+   "views": 2489,
+   "median": 449,
+   "multiple": 5.54,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/PQfnP_nqxWs"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "You Have 5 Years Left To Get Rich",
+   "views": 208461,
+   "median": 38763,
+   "multiple": 5.38,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/cFugga5J1t0"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Oracle Stock Slides After Company Issued ‘Force Majeure’ Notice For Major Data Center Project",
+   "views": 21296,
+   "median": 4186,
+   "multiple": 5.09,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/R7ZO1cUNR_8"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Everything Leads To a Financial Repression",
+   "views": 189991,
+   "median": 38763,
+   "multiple": 4.9,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/7VvnkGr0aV0"
+  },
+  {
+   "channel": "The Compound",
+   "title": "The Tech Bull Market Is Just Getting Started",
+   "views": 21822,
+   "median": 4564,
+   "multiple": 4.78,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/hkG6Qizd5oM"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Scott Galloway reacts to Meta's new AI assistant Muse",
+   "views": 61018,
+   "median": 13997,
+   "multiple": 4.36,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/5wH7wrTM2z8"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "The Federal Reserve Just Raised Interest Rates For The First Time Since 2023",
+   "views": 299187,
+   "median": 74914,
+   "multiple": 3.99,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/2gOubOLfU8E"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "What does this mean for mortgages?",
+   "views": 49138,
+   "median": 13997,
+   "multiple": 3.51,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/CK_imcmQ6sU"
+  },
+  {
+   "channel": "Fundstrat",
+   "title": "Tom Lee explains why Nvidia still isn't expensive right now.",
+   "views": 163900,
+   "median": 46784,
+   "multiple": 3.5,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/26qXd_8mYHs"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The AI Bubble Is Getting Bigger",
+   "views": 129637,
+   "median": 38763,
+   "multiple": 3.34,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/90f8hvkKoUI"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "The EU and Canada just got closer",
+   "views": 45812,
+   "median": 13997,
+   "multiple": 3.27,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/wn1A3aStHss"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Ranking The BEST Money Books 📚",
+   "views": 108170,
+   "median": 33409,
+   "multiple": 3.24,
+   "formula": "The Superlative",
+   "url": "https://www.youtube.com/shorts/uYAktQIxutY"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The U.S. Is Getting Betrayed (And It Plans To Fight Back)",
+   "views": 124974,
+   "median": 38763,
+   "multiple": 3.22,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/800SfOPy--k"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "4 Signs You'll Hit 1 Million in 10 Years Instead Of 40",
+   "views": 233808,
+   "median": 74914,
+   "multiple": 3.12,
+   "formula": "The List",
+   "url": "https://www.youtube.com/shorts/YGnjSONx5Us"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "How Justin Waller Has A 6-Pack 🤣",
+   "views": 104126,
+   "median": 33409,
+   "multiple": 3.12,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/vFiKY8Xz3w4"
+  },
+  {
+   "channel": "MarketBeat",
+   "title": "NVIDIA’s CEO Just Revealed the Next AI Opportunity (3 Stocks to Watch)",
+   "views": 58872,
+   "median": 19037,
+   "multiple": 3.09,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/K-0J9nBAYO0"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "If you feel behind financially... here's some data on why.",
+   "views": 228104,
+   "median": 74914,
+   "multiple": 3.04,
+   "formula": "The Direct Address",
+   "url": "https://www.youtube.com/shorts/bFg4LzgiEgM"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Americans Don't Have Savings Anymore",
+   "views": 117999,
+   "median": 38763,
+   "multiple": 3.04,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4Y1qrFjW9sU"
+  },
+  {
+   "channel": "Fundstrat",
+   "title": "Why Did Everything Else Fall After Nvidia's Beat?",
+   "views": 141387,
+   "median": 46784,
+   "multiple": 3.02,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/dVQErP3KYkE"
+  }
+ ],
+ "skipped_thin_channels": []
+}

@@ -3,3 +3,6 @@
 
 - [[2026-09-23-meta-surged-11-on-this-exact-ai-tool]] — SHARE · hook 72
 - [[2026-09-23-oil-dropped-12-in-five-days]] — SAVE · hook 61
+- [[2026-09-25-microsoft-jumped-3-49-today]] — SHARE · hook 69
+- [[2026-09-25-oil-dropped-6-41-in-five-days]] — SAVE · hook 67
+- [[2026-09-25-nasdaq-up-22-while-dow-drops]] — FOLLOW · hook 60

@@ -1,0 +1,168 @@
+{
+ "idea": {
+  "idea": "Microsoft just jumped 3.49 percent in a single day — here is what the official reports say drove the surge before you rebalance your tech holdings.",
+  "goal": "SHARE",
+  "emotion": "awe and status",
+  "formula": "The Question",
+  "ticker": "MSFT",
+  "structure_from": "https://www.youtube.com/shorts/QOiWrD5ZIW4",
+  "payoff_withheld_until_end": "The specific cloud-based Autopilot update and US-China AI safety discussions mentioned by CEO Satya Nadella that triggered the buying.",
+  "data_points": [
+   "Microsoft price: 515.29",
+   "Change today: 3.49%",
+   "5-day change: 4.36%"
+  ]
+ },
+ "hook": {
+  "hook": "Why did Microsoft gain 3.49 percent in a single day before you sell your shares?",
+  "properties": {
+   "SPECIFICITY": 62,
+   "ADDRESS": 66,
+   "STAKES": 62,
+   "CURIOSITY": 76,
+   "BREVITY": 100
+  },
+  "verdict": 69,
+  "band": "WORKABLE",
+  "formula": "The Question",
+  "on_screen": "Why Microsoft surged today"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "Why did Microsoft gain 3.49 percent in a single day before you sell your shares?",
+    "osd": "Why Microsoft surged today",
+    "emphasis": "surged",
+    "visual": "chart",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "Shares traded at 515.29 dollars after breaking a strong five day run.",
+    "osd": "Microsoft hits 515.29",
+    "emphasis": "515.29",
+    "visual": "counter",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "According to official reports, CEO Satya Nadella pointed to cloud-based Autopilot updates.",
+    "osd": "CEO talks Autopilot",
+    "emphasis": "Autopilot",
+    "visual": "text",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "Discussions on US and China AI safety norms also drove the market reaction today.",
+    "osd": "US China AI safety",
+    "emphasis": "safety",
+    "visual": "text",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "This matters because software names rallied while Treasury yields and oil prices rose.",
+    "osd": "Yields and oil rise",
+    "emphasis": "yields",
+    "visual": "compare",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "You did not see this on the mainstream news desks until the session opened.",
+    "osd": "Institutional desks move",
+    "emphasis": "sessions",
+    "visual": "text",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "Follow for the next move. Not financial advice.",
+    "osd": "Not financial advice",
+    "emphasis": "advice",
+    "visual": "text",
+    "ticker": "MSFT"
+   }
+  ],
+  "word_count": 88,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Microsoft jumped 3.49% today",
+  "chars": 28,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "28 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (3.49%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "CLOUD SURGE",
+  "visual_brief": "Frame shows Microsoft daily price chart spiking green, subject points to Azure data center icon, high contrast on mobile grid."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "Why did Microsoft stock go up today",
+    "Microsoft 3.49 percent surge",
+    "Microsoft stock news today"
+   ],
+   "description": "Microsoft jumped 3.49 percent in a single day to 515.29 dollars. Here is what official reports say drove the surge before you rebalance your tech holdings.\n\nNot financial advice. \n\n#shorts #microsoft #stocks #investing",
+   "tags": [
+    "Microsoft",
+    "MSFT",
+    "Microsoft stock",
+    "Microsoft news",
+    "tech stocks",
+    "stock market today",
+    "market news",
+    "Satya Nadella",
+    "AI safety",
+    "cloud computing",
+    "Wall Street",
+    "investing",
+    "finance",
+    "stocks",
+    "earnings"
+   ],
+   "query_test_pass": true
+  }
+ },
+ "teardown": {
+  "hook": "Why Nvidia shares just dropped 4 percent before you could even open your trading app.",
+  "hook_why": "It combines a high-stakes ticker (Nvidia) with immediate urgency, implying the viewer is missing information that is already affecting their money.",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "Why Nvidia shares just dropped 4 percent before you could even open your trading app.",
+    "shown": "Rapid zoom into a 1-minute Nvidia candle chart showing a vertical red drop."
+   },
+   {
+    "t": "3-12s",
+    "said": "A leaked report from the supply chain shows a massive order cancellation that wasn't in the official earnings call.",
+    "shown": "Screen recording of a document with a yellow highlighter moving across 'Order Cancellation' and 'Confidential'."
+   },
+   {
+    "t": "12-25s",
+    "said": "This matters because Nvidia's valuation is built on future demand. If the big players stop buying, the stock price adjusts instantly.",
+    "shown": "Talking head overlay on a heat map of the S&P 500 showing tech turning bright red."
+   },
+   {
+    "t": "25-35s",
+    "said": "You didn't see this on the news because it's still filtering through the institutional desks. This is why the market moved today.",
+    "shown": "Overlay of a news site (Bloomberg/Reuters) with the specific headline highlighted."
+   },
+   {
+    "t": "35-40s",
+    "said": "Follow for the next move. Not financial advice.",
+    "shown": "Channel logo 'Why Stocks Moved' with a 'Follow' button animation."
+   }
+  ],
+  "pacing": "Fast-paced with cuts every 2.5 seconds. The delivery is staccato to mimic the 'breaking news' urgency of the original hacking story.",
+  "visual_technique": "Evidence-based storytelling. It uses 'leaked' visual cues like highlighters and screen recordings to make the financial data feel like a classified revelation.",
+  "reusable_moves": [
+   "The 'Before You Knew' hook to trigger FOMO.",
+   "Using a highlighter effect on official-looking documents to build authority.",
+   "Directly linking a complex macro event to one specific, popular stock ticker."
+  ],
+  "remake_plan": "Model the 'Unclassified/Leaked' vibe by breaking down a hidden detail in the latest Fed meeting minutes or a Big Tech supply chain report, starting with a 1-second price chart drop."
+ },
+ "video_id": "azf4voGTuzM",
+ "publish_at": "2026-09-25T15:34:17Z"
+}

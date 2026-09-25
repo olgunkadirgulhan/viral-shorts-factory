@@ -1,0 +1,162 @@
+{
+ "idea": {
+  "idea": "Why oil just crashed 6.41 percent in five days — save this list of energy cross-currents before you touch your portfolio.",
+  "goal": "SAVE",
+  "emotion": "relief and fear-of-forgetting",
+  "structure_from": "https://www.youtube.com/shorts/QOiWrD5ZIW4",
+  "payoff_withheld_until_end": "The exact macro factors and Middle East diplomacy hopes that pushed WTI crude down to 93.87.",
+  "data_points": [
+   "Oil (WTI) price: 93.87",
+   "Change today: -0.78%",
+   "5-day change: -6.41%"
+  ]
+ },
+ "hook": {
+  "hook": "Why oil lost 6.41 percent in five days before you change your index funds",
+  "properties": {
+   "SPECIFICITY": 56,
+   "ADDRESS": 66,
+   "STAKES": 88,
+   "CURIOSITY": 58,
+   "BREVITY": 100
+  },
+  "verdict": 67,
+  "band": "WORKABLE",
+  "formula": "The Question",
+  "on_screen": "OIL LOST 6.41%"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "Why oil lost 6.41 percent in five days before you change your index funds",
+    "osd": "OIL LOST 6.41%",
+    "emphasis": "LOST",
+    "visual": "chart",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Crude prices dropped to 93.87 today as reports point to cooling demand and shifting supply expectations.",
+    "osd": "PRICE AT 93.87",
+    "emphasis": "93.87",
+    "visual": "counter",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Energy markets have been under pressure all week with headlines citing rising yields and broad macroeconomic cross-currents.",
+    "osd": "MARKET PRESSURE",
+    "emphasis": "PRESSURE",
+    "visual": "text",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "This matters because lower energy costs ripple straight into inflation data and how the wider stock market prices risk.",
+    "osd": "INFLATION RIPPLE",
+    "emphasis": "RIPPLE",
+    "visual": "compare",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "You did not see this breakdown explained on the evening news because it is still filtering through institutional desks.",
+    "osd": "INSTANT DESK SHIFT",
+    "emphasis": "SHIFT",
+    "visual": "text",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Save this list of energy cross-currents before you touch your portfolio.",
+    "osd": "SAVE THIS LIST",
+    "emphasis": "SAVE",
+    "visual": "list",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Follow for the next move. Not financial advice.",
+    "osd": "NOT FINANCIAL ADVICE",
+    "emphasis": "ADVICE",
+    "visual": "text",
+    "ticker": "CL=F"
+   }
+  ],
+  "word_count": 104,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Oil dropped 6.41% in five days",
+  "chars": 30,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "30 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (6.41%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "ENERGY CRASH",
+  "visual_brief": "Brent crude chart plunging downwards on a dark terminal background with high-contrast red indicator lines, centered subject with clean margins avoiding top 12% and bottom 20% UI overlays."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "why oil dropped",
+    "crude oil price crash 2026",
+    "oil market analysis today"
+   ],
+   "description": "Why oil just crashed 6.41 percent in five days — save this list of energy cross-currents before you touch your portfolio.\n\nNot financial advice. #shorts #oil #stocks #macro",
+   "tags": [
+    "oil dropped",
+    "crude oil",
+    "oil price",
+    "CL=F",
+    "energy market",
+    "inflation",
+    "stock market",
+    "portfolio",
+    "macroeconomics",
+    "why stocks moved",
+    "commodities"
+   ],
+   "query_test_pass": true
+  }
+ },
+ "teardown": {
+  "hook": "Why Nvidia shares just dropped 4 percent before you could even open your trading app.",
+  "hook_why": "It combines a high-stakes ticker (Nvidia) with immediate urgency, implying the viewer is missing information that is already affecting their money.",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "Why Nvidia shares just dropped 4 percent before you could even open your trading app.",
+    "shown": "Rapid zoom into a 1-minute Nvidia candle chart showing a vertical red drop."
+   },
+   {
+    "t": "3-12s",
+    "said": "A leaked report from the supply chain shows a massive order cancellation that wasn't in the official earnings call.",
+    "shown": "Screen recording of a document with a yellow highlighter moving across 'Order Cancellation' and 'Confidential'."
+   },
+   {
+    "t": "12-25s",
+    "said": "This matters because Nvidia's valuation is built on future demand. If the big players stop buying, the stock price adjusts instantly.",
+    "shown": "Talking head overlay on a heat map of the S&P 500 showing tech turning bright red."
+   },
+   {
+    "t": "25-35s",
+    "said": "You didn't see this on the news because it's still filtering through the institutional desks. This is why the market moved today.",
+    "shown": "Overlay of a news site (Bloomberg/Reuters) with the specific headline highlighted."
+   },
+   {
+    "t": "35-40s",
+    "said": "Follow for the next move. Not financial advice.",
+    "shown": "Channel logo 'Why Stocks Moved' with a 'Follow' button animation."
+   }
+  ],
+  "pacing": "Fast-paced with cuts every 2.5 seconds. The delivery is staccato to mimic the 'breaking news' urgency of the original hacking story.",
+  "visual_technique": "Evidence-based storytelling. It uses 'leaked' visual cues like highlighters and screen recordings to make the financial data feel like a classified revelation.",
+  "reusable_moves": [
+   "The 'Before You Knew' hook to trigger FOMO.",
+   "Using a highlighter effect on official-looking documents to build authority.",
+   "Directly linking a complex macro event to one specific, popular stock ticker."
+  ],
+  "remake_plan": "Model the 'Unclassified/Leaked' vibe by breaking down a hidden detail in the latest Fed meeting minutes or a Big Tech supply chain report, starting with a 1-second price chart drop."
+ },
+ "video_id": "1OOQYb5CKpk",
+ "publish_at": "2026-09-25T17:00:00Z"
+}

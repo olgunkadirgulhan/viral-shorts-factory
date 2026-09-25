@@ -1,0 +1,168 @@
+{
+ "idea": {
+  "idea": "While the Nasdaq hit new highs, the Dow Jones set fresh three-month lows — don't fall behind on why the market is splitting right now.",
+  "goal": "FOLLOW",
+  "emotion": "FOMO and aspiration",
+  "structure_from": "https://www.youtube.com/shorts/QOiWrD5ZIW4",
+  "payoff_withheld_until_end": "The exact Treasury yield spike and bond sell-off mechanics causing the Dow to slide while tech surges.",
+  "data_points": [
+   "Nasdaq price: 26987.84",
+   "Dow Jones price: 51473.11",
+   "Nasdaq 5d change: 1.75%",
+   "Dow Jones 5d change: -0.41%"
+  ]
+ },
+ "hook": {
+  "hook": "Why did the Nasdaq hit new highs while the Dow Jones fell to three-month lows before you trade your portfolio?",
+  "properties": {
+   "SPECIFICITY": 52,
+   "ADDRESS": 66,
+   "STAKES": 48,
+   "CURIOSITY": 76,
+   "BREVITY": 100
+  },
+  "verdict": 60,
+  "band": "WORKABLE",
+  "formula": "The Question",
+  "on_screen": "NASDAQ HITS HIGHS, DOW FALLS"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "Why did the Nasdaq hit new highs while the Dow Jones fell to three-month lows before you trade your portfolio?",
+    "osd": "NASDAQ HITS HIGHS DOW FALLS",
+    "emphasis": "HIGHS",
+    "visual": "compare",
+    "ticker": "^IXIC",
+    "compare_with": "^DJI"
+   },
+   {
+    "say": "The Nasdaq climbed to 26,987, gaining 1.75 percent over five days as tech sentiment held firm.",
+    "osd": "NASDAQ AT 26987 UP 1.75 PERCENT",
+    "emphasis": "1.75",
+    "visual": "counter",
+    "ticker": "^IXIC"
+   },
+   {
+    "say": "Meanwhile, the Dow Jones slid to 51,473, dropping 0.41 percent over the same five-day stretch.",
+    "osd": "DOW SLIDES TO 51473",
+    "emphasis": "SLIDES",
+    "visual": "counter",
+    "ticker": "^DJI"
+   },
+   {
+    "say": "Investor Business Daily reports that surging Treasury yields are splitting the market right now.",
+    "osd": "TREASURY YIELDS SURGE",
+    "emphasis": "SURGE",
+    "visual": "text",
+    "ticker": "^DJI"
+   },
+   {
+    "say": "This matters because higher bond yields hit traditional companies in the Dow harder than high-growth tech stocks.",
+    "osd": "BOND YIELDS HIT DOW",
+    "emphasis": "BOND",
+    "visual": "chart",
+    "ticker": "^GSPC"
+   },
+   {
+    "say": "You did not see this exact market split on the evening news because the institutional desks are still digesting it.",
+    "osd": "MARKET SPLIT UNCOVERED",
+    "emphasis": "SPLIT",
+    "visual": "text",
+    "ticker": "^IXIC"
+   },
+   {
+    "say": "Follow for the next move. Not financial advice.",
+    "osd": "NOT FINANCIAL ADVICE",
+    "emphasis": "FOLLOW",
+    "visual": "text",
+    "ticker": "^IXIC"
+   }
+  ],
+  "word_count": 110,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Nasdaq up 22% while Dow drops",
+  "chars": 29,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "29 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (22%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "INDEX GAP",
+  "visual_brief": "Split screen chart: Nasdaq line climbing green, Dow line falling red. High contrast dark background. Keep text in middle third."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "Nasdaq hits new highs Dow drops",
+    "why is the stock market splitting",
+    "Nasdaq vs Dow Jones market divergence"
+   ],
+   "description": "Why the Nasdaq hit new highs while the Dow Jones fell to three-month lows before you trade your portfolio. \n\nNot financial advice. \n\n#shorts #nasdaq #dowjones #stocks",
+   "tags": [
+    "Nasdaq",
+    "Dow Jones",
+    "stock market split",
+    "Nasdaq highs",
+    "Dow lows",
+    "Treasury yields",
+    "tech stocks",
+    "stock market news",
+    "Why Stocks Moved",
+    "portfolio management",
+    "market divergence",
+    "interest rates",
+    "investing",
+    "stocks",
+    "Wall Street"
+   ],
+   "query_test_pass": false
+  }
+ },
+ "teardown": {
+  "hook": "Why Nvidia shares just dropped 4 percent before you could even open your trading app.",
+  "hook_why": "It combines a high-stakes ticker (Nvidia) with immediate urgency, implying the viewer is missing information that is already affecting their money.",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "Why Nvidia shares just dropped 4 percent before you could even open your trading app.",
+    "shown": "Rapid zoom into a 1-minute Nvidia candle chart showing a vertical red drop."
+   },
+   {
+    "t": "3-12s",
+    "said": "A leaked report from the supply chain shows a massive order cancellation that wasn't in the official earnings call.",
+    "shown": "Screen recording of a document with a yellow highlighter moving across 'Order Cancellation' and 'Confidential'."
+   },
+   {
+    "t": "12-25s",
+    "said": "This matters because Nvidia's valuation is built on future demand. If the big players stop buying, the stock price adjusts instantly.",
+    "shown": "Talking head overlay on a heat map of the S&P 500 showing tech turning bright red."
+   },
+   {
+    "t": "25-35s",
+    "said": "You didn't see this on the news because it's still filtering through the institutional desks. This is why the market moved today.",
+    "shown": "Overlay of a news site (Bloomberg/Reuters) with the specific headline highlighted."
+   },
+   {
+    "t": "35-40s",
+    "said": "Follow for the next move. Not financial advice.",
+    "shown": "Channel logo 'Why Stocks Moved' with a 'Follow' button animation."
+   }
+  ],
+  "pacing": "Fast-paced with cuts every 2.5 seconds. The delivery is staccato to mimic the 'breaking news' urgency of the original hacking story.",
+  "visual_technique": "Evidence-based storytelling. It uses 'leaked' visual cues like highlighters and screen recordings to make the financial data feel like a classified revelation.",
+  "reusable_moves": [
+   "The 'Before You Knew' hook to trigger FOMO.",
+   "Using a highlighter effect on official-looking documents to build authority.",
+   "Directly linking a complex macro event to one specific, popular stock ticker."
+  ],
+  "remake_plan": "Model the 'Unclassified/Leaked' vibe by breaking down a hidden detail in the latest Fed meeting minutes or a Big Tech supply chain report, starting with a 1-second price chart drop."
+ },
+ "video_id": "7LeC_Yd9wvA",
+ "publish_at": "2026-09-25T22:30:00Z"
+}
