@@ -37,8 +37,9 @@ LLM_CREATIVE_BACKEND = os.environ.get("LLM_CREATIVE_BACKEND", LLM_BACKEND)  # ho
 # Yoğunluk (503) / zaman aşımında sıradaki model. Adlar 2026-09-23'te tools/llm_probe.py ile doğrulandı.
 # Farklı nesil/boyutlar ayrı kapasite havuzlarında: flash'lar birlikte 503 verse de lite/gemma genelde açık.
 GEMINI_MODELS = [m.strip() for m in os.environ.get("GEMINI_MODEL", ",".join([
-    "gemini-flash-latest", "gemini-3.5-flash", "gemini-2.5-flash", "gemini-3-flash-preview",
-    "gemini-flash-lite-latest", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite", "gemma-4-31b-it"])).split(",")]
+    "gemini-flash-latest", "gemini-3.8-flash", "gemini-3.5-flash", "gemini-3.7-flash", "gemini-3-flash-preview",
+    "gemini-flash-lite-latest", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite",
+    "gemma-4-31b-it", "gemma-4-26b-a4b-it"])).split(",")]
 GEMINI_ROUND_PAUSE = int(os.environ.get("GEMINI_ROUND_PAUSE", "90"))   # tüm modeller meşgulse bekle, 1 tur daha
 GROQ_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 LLM_MIN_INTERVAL = float(os.environ.get("LLM_MIN_INTERVAL", "7"))   # ücretsiz katman dakika limiti için
