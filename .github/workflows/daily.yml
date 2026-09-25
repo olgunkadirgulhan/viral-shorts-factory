@@ -3,10 +3,9 @@ name: Daily viral short
 on:
   schedule:
     # 09:00 UTC = 05:00 New York, after the 07:00 UTC quota reset. GitHub sometimes delays or drops a
-    # scheduled run, so two backup triggers follow; the guard step skips them once today's videos exist.
-    - cron: "0 9 * * *"
-    - cron: "0 12 * * *"
-    - cron: "0 16 * * *"
+    # scheduled run, so backup triggers follow; the guard step skips them once today's videos exist.
+    # Off the :00 mark, where GitHub drops the most runs (09:00/12:00 never fired).
+    - cron: "13 8-16/2 * * *"
   workflow_dispatch:
     inputs:
       videos:

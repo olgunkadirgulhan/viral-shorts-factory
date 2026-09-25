@@ -3,7 +3,7 @@ name: Weekly review (lessons.md)
 on:
   schedule:
     # Monday 02:00 UTC = Sunday 22:00 New York
-    - cron: "0 2 * * 1"
+    - cron: "19 2 * * 1"
   workflow_dispatch:
 
 concurrency:
