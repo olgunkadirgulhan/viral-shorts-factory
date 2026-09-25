@@ -33,10 +33,7 @@ def main():
         for m in common.GEMINI_MODELS:
             t0 = time.time()
             try:
-                r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{m}:generateContent",
-                                  params={"key": os.environ["GEMINI_API_KEY"]}, timeout=(10, 75), json={
-                                      "contents": [{"role": "user", "parts": [{"text": PROMPT}]}],
-                                      "generationConfig": {"responseMimeType": "application/json"}})
+                r = common.gemini_request(m, SYSTEM, PROMPT, True)
                 msg = r.json().get("error", {}).get("message", "")[:150] if not r.ok else \
                     r.json()["candidates"][0]["content"]["parts"][-1]["text"][:80]
                 print(f"  gemini model {m:26} {r.status_code} {time.time() - t0:4.1f}s {msg}")

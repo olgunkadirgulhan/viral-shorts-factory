@@ -35,8 +35,11 @@ CONTENT_LANG = os.environ.get("CONTENT_LANG", "en")
 LLM_BACKEND = os.environ.get("LLM_BACKEND", "gemini,groq,anthropic")
 LLM_CREATIVE_BACKEND = os.environ.get("LLM_CREATIVE_BACKEND", LLM_BACKEND)  # hook + script adımı (§8.7)
 # Yoğunluk (503) / zaman aşımında sıradaki model. Adlar 2026-09-23'te tools/llm_probe.py ile doğrulandı.
-GEMINI_MODELS = os.environ.get("GEMINI_MODEL",
-                               "gemini-flash-latest,gemini-3.5-flash,gemini-flash-lite-latest").split(",")
+# Farklı nesil/boyutlar ayrı kapasite havuzlarında: flash'lar birlikte 503 verse de lite/gemma genelde açık.
+GEMINI_MODELS = [m.strip() for m in os.environ.get("GEMINI_MODEL", ",".join([
+    "gemini-flash-latest", "gemini-3.5-flash", "gemini-2.5-flash", "gemini-3-flash-preview",
+    "gemini-flash-lite-latest", "gemini-3.1-flash-lite", "gemini-2.5-flash-lite", "gemma-4-31b-it"])).split(",")]
+GEMINI_ROUND_PAUSE = int(os.environ.get("GEMINI_ROUND_PAUSE", "90"))   # tüm modeller meşgulse bekle, 1 tur daha
 GROQ_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
 LLM_MIN_INTERVAL = float(os.environ.get("LLM_MIN_INTERVAL", "7"))   # ücretsiz katman dakika limiti için
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434/api/generate")
@@ -128,35 +131,45 @@ def _anthropic(system, prompt, as_json):
 _gemini_ok = [0]
 
 
+def gemini_request(model, system, prompt, as_json):
+    """Tek model çağrısı. Gemma'da sistem talimatı ve JSON modu yok: talimat prompt'un başına eklenir."""
+    gemma = model.startswith("gemma")
+    body = {"contents": [{"role": "user", "parts": [{"text": f"{system}\n\n{prompt}" if gemma else prompt}]}],
+            "generationConfig": {"temperature": 0.8, "maxOutputTokens": 8192,
+                                 **({"responseMimeType": "application/json"} if as_json and not gemma else {})}}
+    if not gemma:
+        body["systemInstruction"] = {"parts": [{"text": system}]}
+    return requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                         params={"key": os.environ["GEMINI_API_KEY"]}, timeout=(10, 75), json=body)
+
+
 def _gemini(system, prompt, as_json):
     """Google Gemini API, ücretsiz katman (aistudio.google.com anahtarı, kart gerekmez)."""
-    last = None
-    start = _gemini_ok[0]                            # bu çalışmada son çalışan modelden başla (yavaş failover bir kez)
-    for idx in range(start, len(GEMINI_MODELS)):     # yoğunluk / limit / zaman aşımında sıradaki model
-        model = GEMINI_MODELS[idx]
-        try:
-            r = requests.post(
-                f"https://generativelanguage.googleapis.com/v1beta/models/{model.strip()}:generateContent",
-                params={"key": os.environ["GEMINI_API_KEY"]}, timeout=(10, 75), json={
-                    "systemInstruction": {"parts": [{"text": system}]},
-                    "contents": [{"role": "user", "parts": [{"text": prompt}]}],
-                    "generationConfig": {"temperature": 0.8, "maxOutputTokens": 8192,
-                                         **({"responseMimeType": "application/json"} if as_json else {})}})
-        except requests.RequestException as e:
-            last = f"{model}: {type(e).__name__}"
-            continue
-        if r.ok:
-            cands = r.json().get("candidates") or []
-            parts = cands[0].get("content", {}).get("parts", []) if cands else []
-            txt = "".join(p.get("text", "") for p in parts if not p.get("thought"))
-            if txt.strip():
-                if idx != _gemini_ok[0]:
-                    log(f"  gemini modeli: {model}")
-                _gemini_ok[0] = idx
-                return txt
-            last = f"{model}: boş yanıt ({cands[0].get('finishReason') if cands else 'no candidates'})"
-        else:
-            last = f"{model}: {r.status_code} {r.text[:200]}"
+    last, n = None, len(GEMINI_MODELS)
+    for rnd in range(2):
+        if rnd:
+            log(f"  gemini: tüm modeller meşgul, {GEMINI_ROUND_PAUSE}s sonra bir tur daha")
+            time.sleep(GEMINI_ROUND_PAUSE)
+        for k in range(n):                           # son çalışan modelden başla, hepsini dolaş
+            idx = (_gemini_ok[0] + k) % n
+            model = GEMINI_MODELS[idx]
+            try:
+                r = gemini_request(model, system, prompt, as_json)
+            except requests.RequestException as e:
+                last = f"{model}: {type(e).__name__}"
+                continue
+            if r.ok:
+                cands = r.json().get("candidates") or []
+                parts = cands[0].get("content", {}).get("parts", []) if cands else []
+                txt = "".join(p.get("text", "") for p in parts if not p.get("thought"))
+                if txt.strip():
+                    if idx != _gemini_ok[0]:
+                        log(f"  gemini modeli: {model}")
+                    _gemini_ok[0] = idx
+                    return txt
+                last = f"{model}: boş yanıt ({cands[0].get('finishReason') if cands else 'no candidates'})"
+            else:
+                last = f"{model}: {r.status_code} {r.text[:200]}"
     _gemini_ok[0] = 0                                # hepsi düştüyse sonraki çağrıda baştan dene
     raise RuntimeError(f"gemini: {last}")
 
