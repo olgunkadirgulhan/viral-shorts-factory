@@ -390,8 +390,10 @@ def upload_youtube(mp4, pkg, yt, publish_at):
     from googleapiclient.discovery import build
     from googleapiclient.http import MediaFileUpload
     api = build("youtube", "v3", credentials=yt_creds(), cache_discovery=False)
-    body = {"snippet": {"title": pkg["title"][:100], "description": yt["description"][:4900],
-                        "tags": yt["tags"], "categoryId": "25",
+    # YouTube < ve > içeren başlık/açıklama/etiketi reddeder (invalidDescription), yükleme komple düşer
+    clean = lambda s: str(s).replace("->", "→").replace("<", "").replace(">", "")
+    body = {"snippet": {"title": clean(pkg["title"])[:100], "description": clean(yt["description"])[:4900],
+                        "tags": [clean(t) for t in yt["tags"]], "categoryId": "25",
                         "defaultLanguage": CONTENT_LANG, "defaultAudioLanguage": CONTENT_LANG},
             "status": {"selfDeclaredMadeForKids": False, "containsSyntheticMedia": True}}
     mode = os.environ.get("YOUTUBE_PRIVACY", "unlisted")      # scheduled = slot saatinde herkese açık
