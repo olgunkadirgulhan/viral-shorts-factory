@@ -24,6 +24,10 @@ on:
       slots:
         description: "Optional one-off slots, e.g. 12:30=SHARE,17:30=SAVE (New York time)"
         default: ""
+      auto:
+        description: External scheduler call - behave exactly like a scheduled run (other inputs ignored)
+        type: boolean
+        default: false
 
 concurrency:
   group: viral-pipeline
@@ -49,7 +53,9 @@ jobs:
       YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
       YOUTUBE_PRIVACY: ${{ vars.YOUTUBE_PRIVACY || 'unlisted' }}
       PUBLISH_TZ: ${{ vars.PUBLISH_TZ || 'America/New_York' }}
-      SLOTS: ${{ inputs.slots || vars.SLOTS || '07:00=SAVE,09:30=SHARE,12:30=SHARE,15:00=FOLLOW,17:30=SAVE,20:00=SHARE' }}
+      SLOTS: ${{ (!inputs.auto && inputs.slots) || vars.SLOTS || '07:00=SAVE,09:30=SHARE,12:30=SHARE,15:00=FOLLOW,17:30=SAVE,20:00=SHARE' }}
+      # schedule, or an external scheduler call with auto=true: both follow the daily plan
+      SCHEDULED: ${{ github.event_name == 'schedule' || inputs.auto }}
       MARKET_TICKERS: ${{ vars.MARKET_TICKERS || '^GSPC,^IXIC,^DJI,GC=F,CL=F,DX-Y.NYB,NVDA,AAPL,MSFT,TSLA,AMZN,META' }}
       CHANNEL_NAME: ${{ vars.CHANNEL_NAME }}
       TTS_VOICE: ${{ vars.TTS_VOICE || 'en-US-AndrewMultilingualNeural' }}
@@ -66,7 +72,7 @@ jobs:
           # a backup trigger must not produce a second batch; look at the latest main, not the trigger commit
           git fetch -q origin main
           done_today=$(git ls-tree --name-only origin/main data/ | grep -E "data/(job|recap)_$(date -u +%F)" || true)
-          if [ "${{ github.event_name }}" = "schedule" ] && [ -n "$done_today" ]; then
+          if [ "$SCHEDULED" = "true" ] && [ -n "$done_today" ]; then
             echo "skip=1" >> "$GITHUB_OUTPUT"; echo "today's videos already exist, nothing to do"
           fi
 
@@ -100,12 +106,12 @@ jobs:
       - name: Produce and publish
         if: steps.guard.outputs.skip != '1'
         run: |
-          ARGS="--videos ${{ github.event_name == 'schedule' && (vars.VIDEOS_PER_DAY || '3') || inputs.videos }}"
-          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          ARGS="--videos ${{ (github.event_name == 'schedule' || inputs.auto) && (vars.VIDEOS_PER_DAY || '3') || inputs.videos }}"
+          if [ "$SCHEDULED" != "true" ] && [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
           # Until the YouTube API audit is approved, API uploads get locked private forever.
           # Scheduled runs only render (videos come as artifacts) until PUBLISH_MODE=live is set.
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ vars.PUBLISH_MODE }}" != "live" ]; then ARGS="$ARGS --dry-run"; fi
-          if [ "${{ inputs.fallback_only }}" = "true" ]; then ARGS="$ARGS --fallback-only"; fi
+          if [ "$SCHEDULED" = "true" ] && [ "${{ vars.PUBLISH_MODE }}" != "live" ]; then ARGS="$ARGS --dry-run"; fi
+          if [ "$SCHEDULED" != "true" ] && [ "${{ inputs.fallback_only }}" = "true" ]; then ARGS="$ARGS --fallback-only"; fi
           python daily_viral.py $ARGS
 
       - name: Videos as artifact
