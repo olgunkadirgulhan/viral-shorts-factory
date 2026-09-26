@@ -1,0 +1,320 @@
+{
+ "outliers": [
+  {
+   "channel": "Forbes",
+   "title": "Oracle Stock Slides After Company Issued ‘Force Majeure’ Notice For Major Data Center Project",
+   "views": 86086,
+   "median": 2947,
+   "multiple": 29.21,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/IHUnfqjMFcc"
+  },
+  {
+   "channel": "Forbes",
+   "title": "OpenAI Agent Hacked Into Australia’s Medicare Database",
+   "views": 83318,
+   "median": 2947,
+   "multiple": 28.27,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/XL8JanoerRc"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "How Twinkies Became a $5 Billion Problem",
+   "views": 1180820,
+   "median": 44319,
+   "multiple": 26.64,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/QOiWrD5ZIW4"
+  },
+  {
+   "channel": "CNBC Make It",
+   "title": "How Costco keeps gas so cheap",
+   "views": 93151,
+   "median": 4582,
+   "multiple": 20.33,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/6f5rmIYBERY"
+  },
+  {
+   "channel": "The Compound",
+   "title": "Josh Brown on Apple's Foldable iPhone",
+   "views": 65177,
+   "median": 4557,
+   "multiple": 14.3,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/Uou5HxG1msM"
+  },
+  {
+   "channel": "Forbes",
+   "title": "Oracle Stock Slides After Company Issued ‘Force Majeure’ Notice For Major Data Center Project",
+   "views": 39576,
+   "median": 2947,
+   "multiple": 13.43,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/R7ZO1cUNR_8"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "U.S. appeals court upholds Pentagon designation of Anthropic as supply chain risk",
+   "views": 21544,
+   "median": 1676,
+   "multiple": 12.85,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/NvmpEEv9mCA"
+  },
+  {
+   "channel": "MarketBeat",
+   "title": "Pelosi Bought What!? 5 Massive Congressional Stock Trades You Need to See",
+   "views": 248930,
+   "median": 19709,
+   "multiple": 12.63,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4vP5tjYd3n4"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Microsoft releases Copilot update: Here's what you need to know",
+   "views": 20276,
+   "median": 1676,
+   "multiple": 12.1,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/25eTE163fPE"
+  },
+  {
+   "channel": "The Wall Street Journal",
+   "title": "I Tried Apple’s First Folding iPhone. Here Are 3 Takeaways.",
+   "views": 399056,
+   "median": 44319,
+   "multiple": 9.0,
+   "formula": "The List",
+   "url": "https://www.youtube.com/shorts/aEuswJGYQ4U"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Ranking The BEST Credit Cards 💳",
+   "views": 296512,
+   "median": 33096,
+   "multiple": 8.96,
+   "formula": "The Superlative",
+   "url": "https://www.youtube.com/shorts/K7UvJQsjMOM"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Buying A House In Cash?!",
+   "views": 286867,
+   "median": 33096,
+   "multiple": 8.67,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/OiSZT6xESdA"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "China Is Behind High Gas Prices",
+   "views": 284259,
+   "median": 37874,
+   "multiple": 7.51,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/w3J7yRovEF0"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Jeff Bezos' Amazon shuts down Mark Zuckberg's 'Meta Muse'",
+   "views": 88025,
+   "median": 13810,
+   "multiple": 6.37,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/oRP3YINZviU"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "Microsoft packages business AI in single app as it tries to compete with Anthropic",
+   "views": 9955,
+   "median": 1676,
+   "multiple": 5.94,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/RHE8uqu2_KI"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "You Have 5 Years Left To Get Rich",
+   "views": 220434,
+   "median": 37874,
+   "multiple": 5.82,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/cFugga5J1t0"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Everything Leads To a Financial Repression",
+   "views": 190620,
+   "median": 37874,
+   "multiple": 5.03,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/7VvnkGr0aV0"
+  },
+  {
+   "channel": "The Compound",
+   "title": "The Tech Bull Market Is Just Getting Started",
+   "views": 22376,
+   "median": 4557,
+   "multiple": 4.91,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/hkG6Qizd5oM"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "Scott Galloway reacts to Meta's new AI assistant Muse",
+   "views": 63324,
+   "median": 13810,
+   "multiple": 4.59,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/5wH7wrTM2z8"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "Ranking The BEST Money Books 📚",
+   "views": 135252,
+   "median": 33096,
+   "multiple": 4.09,
+   "formula": "The Superlative",
+   "url": "https://www.youtube.com/shorts/uYAktQIxutY"
+  },
+  {
+   "channel": "Fundstrat",
+   "title": "Tom Lee explains why Nvidia still isn't expensive right now.",
+   "views": 164601,
+   "median": 43853,
+   "multiple": 3.75,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/26qXd_8mYHs"
+  },
+  {
+   "channel": "Humphrey Yang",
+   "title": "The Federal Reserve Just Raised Interest Rates For The First Time Since 2023",
+   "views": 299951,
+   "median": 80426,
+   "multiple": 3.73,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/2gOubOLfU8E"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "What does this mean for mortgages?",
+   "views": 49610,
+   "median": 13810,
+   "multiple": 3.59,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/CK_imcmQ6sU"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The AI Bubble Is Getting Bigger",
+   "views": 131239,
+   "median": 37874,
+   "multiple": 3.47,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/90f8hvkKoUI"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "The U.S. Is Getting Betrayed (And It Plans To Fight Back)",
+   "views": 126894,
+   "median": 37874,
+   "multiple": 3.35,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/800SfOPy--k"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "The EU and Canada just got closer",
+   "views": 46059,
+   "median": 13810,
+   "multiple": 3.34,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/wn1A3aStHss"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "This AI data center company is BS?",
+   "views": 45852,
+   "median": 13810,
+   "multiple": 3.32,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/MfnQMIv3oo4"
+  },
+  {
+   "channel": "Fundstrat",
+   "title": "Why Did Everything Else Fall After Nvidia's Beat?",
+   "views": 141427,
+   "median": 43853,
+   "multiple": 3.23,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/dVQErP3KYkE"
+  },
+  {
+   "channel": "CNBC Television",
+   "title": "OpenAI says its agents leaked 53 images from users",
+   "views": 5368,
+   "median": 1676,
+   "multiple": 3.2,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/nXfoXZm2Lpg"
+  },
+  {
+   "channel": "Prof G Markets",
+   "title": "The U.S. housing market is the most frozen it has been in decades",
+   "views": 43952,
+   "median": 13810,
+   "multiple": 3.18,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/rQel6j1sbQE"
+  },
+  {
+   "channel": "Andrei Jikh",
+   "title": "Americans Don't Have Savings Anymore",
+   "views": 119741,
+   "median": 37874,
+   "multiple": 3.16,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/4Y1qrFjW9sU"
+  },
+  {
+   "channel": "Graham Stephan",
+   "title": "How Justin Waller Has A 6-Pack 🤣",
+   "views": 104179,
+   "median": 33096,
+   "multiple": 3.15,
+   "formula": "The Question",
+   "url": "https://www.youtube.com/shorts/vFiKY8Xz3w4"
+  },
+  {
+   "channel": "MarketBeat",
+   "title": "NVIDIA’s CEO Just Revealed the Next AI Opportunity (3 Stocks to Watch)",
+   "views": 61655,
+   "median": 19709,
+   "multiple": 3.13,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/K-0J9nBAYO0"
+  },
+  {
+   "channel": "MarketBeat",
+   "title": "6 Buy-the-Dip Stocks With Triple-Digit Upside",
+   "views": 59906,
+   "median": 19709,
+   "multiple": 3.04,
+   "formula": "The List",
+   "url": "https://www.youtube.com/shorts/o7I2fCL_Opc"
+  },
+  {
+   "channel": "the bald trader",
+   "title": "NSE IPO 2026 Explained #nse #ipo",
+   "views": 108941,
+   "median": 36021,
+   "multiple": 3.02,
+   "formula": "Unclassified",
+   "url": "https://www.youtube.com/shorts/ckkg2QL1Fis"
+  }
+ ],
+ "skipped_thin_channels": []
+}

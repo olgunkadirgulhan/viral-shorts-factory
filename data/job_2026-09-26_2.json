@@ -1,0 +1,166 @@
+{
+ "idea": {
+  "idea": "Microsoft jumped 3.66% today to hit $516.17. We explain Satya Nadella's massive shift to 'Autopilot' workplace AI agents and the cold reality check just issued by Goldman Sachs.",
+  "goal": "FOLLOW",
+  "emotion": "FOMO",
+  "formula": "Unclassified",
+  "ticker": "MSFT",
+  "structure_from": "https://www.youtube.com/shorts/IHUnfqjMFcc",
+  "payoff_withheld_until_end": "The specific $300 billion AI revenue threshold that Goldman Sachs says Microsoft and others must generate to break even is withheld until the final beat.",
+  "data_points": [
+   "Microsoft price is $516.17",
+   "Microsoft gained 3.66% today",
+   "Microsoft rose 4.53% over the last 5 days"
+  ]
+ },
+ "hook": {
+  "hook": "What does this 3.66 percent Microsoft move mean for your tech portfolio before you rebalance?",
+  "properties": {
+   "SPECIFICITY": 62,
+   "ADDRESS": 66,
+   "STAKES": 62,
+   "CURIOSITY": 76,
+   "BREVITY": 100
+  },
+  "verdict": 69,
+  "band": "WORKABLE",
+  "formula": "The Question",
+  "on_screen": "Your tech portfolio"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "What does this 3.66 percent Microsoft move mean for your tech portfolio before you rebalance?",
+    "osd": "Your tech portfolio",
+    "emphasis": "portfolio",
+    "visual": "chart",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "Microsoft hit 516 dollars today as CEO Satya Nadella announced a shift to Autopilot workplace AI agents.",
+    "osd": "Microsoft hits 516 dollars",
+    "emphasis": "516",
+    "visual": "counter",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "The stock gained 4.53 percent this week, but the cost of building this tech is now being questioned.",
+    "osd": "4.53 percent weekly gain",
+    "emphasis": "weekly",
+    "visual": "compare",
+    "ticker": "MSFT",
+    "compare_with": "^IXIC"
+   },
+   {
+    "say": "According to today's reports, Goldman Sachs just issued a cold reality check for every AI investor.",
+    "osd": "Goldman Sachs reality check",
+    "emphasis": "reality",
+    "visual": "text",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "Goldman says these giants need 300 billion dollars in AI revenue just to break even on their investments.",
+    "osd": "300 billion break even",
+    "emphasis": "billion",
+    "visual": "counter",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "Follow Why Stocks Moved to track the next big shift. Not financial advice.",
+    "osd": "Not financial advice",
+    "emphasis": "financial",
+    "visual": "text",
+    "ticker": "MSFT"
+   }
+  ],
+  "word_count": 97,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Microsoft up 3.66% today",
+  "chars": 24,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "24 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (3.66%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "AI AGENT SHOCK",
+  "visual_brief": "Center-right Satya Nadella portrait; bold white text on dark blue gradient; MSFT chart line glowing in background."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "why is microsoft stock up today",
+    "microsoft autopilot ai agents news",
+    "goldman sachs ai revenue report"
+   ],
+   "description": "Microsoft shares jumped 3.66% today as Satya Nadella pivots to 'Autopilot' AI agents, but Goldman Sachs issued a $300 billion reality check. Learn how this massive shift in AI spending affects your tech portfolio. Not financial advice. #shorts",
+   "tags": [
+    "Microsoft",
+    "MSFT",
+    "Microsoft stock news",
+    "Satya Nadella",
+    "AI agents",
+    "Autopilot AI",
+    "Goldman Sachs",
+    "AI revenue",
+    "tech stocks",
+    "stock market today",
+    "AI investment",
+    "Microsoft 516",
+    "Why Stocks Moved",
+    "AI bubble",
+    "investing"
+   ],
+   "query_test_pass": true
+  }
+ },
+ "teardown": {
+  "hook": "Why did Oracle stock just slide after a sudden legal emergency halted their biggest AI project before you buy more tech shares?",
+  "hook_why": "Note: No transcript was available, so this breakdown is modeled from the viral title, the 'Unclassified' formula, and our channel's proven stock-movement structure. The hook stops the scroll in under 1.5 seconds by pairing a high-contrast negative event ('legal emergency') with a massive trend ('AI project') and directly addressing the viewer's wallet ('before you buy more tech shares').",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "Why did Oracle stock just slide after a sudden legal emergency halted their biggest AI project before you buy more tech shares?",
+    "shown": "A downward-trending stock chart of Oracle (ORCL) with bold red text overlay: 'ORACLE HALTED?'"
+   },
+   {
+    "t": "3-9s",
+    "said": "Oracle issued a 'force majeure' notice. That is a legal emergency clause used when uncontrollable events stop a contract.",
+    "shown": "Zoom-in on a legal document mockup highlighting the words 'FORCE MAJEURE' with a simple three-word definition popup."
+   },
+   {
+    "t": "9-16s",
+    "said": "This halted construction on a massive data center designed to power next-generation AI chips.",
+    "shown": "B-roll of a massive, empty server warehouse transitioning to a graphic of an AI microchip."
+   },
+   {
+    "t": "16-23s",
+    "said": "Investors panicked because delays mean slower revenue growth in a market priced for perfection.",
+    "shown": "A bar chart showing Oracle's projected cloud revenue versus the delay impact."
+   },
+   {
+    "t": "23-30s",
+    "said": "If you hold tech index funds, you likely own a piece of this. Always check your underlying holdings.",
+    "shown": "A pie chart showing an index fund's tech sector breakdown with Oracle highlighted."
+   },
+   {
+    "t": "30-35s",
+    "said": "Follow 'Why Stocks Moved' for daily stock breakdowns. Not financial advice.",
+    "shown": "A clean end-screen with the channel logo, a follow button animation, and a small, clear disclaimer at the bottom."
+   }
+  ],
+  "pacing": "Rapid cuts every 5 to 7 seconds, utilizing dynamic zoom-ins on charts to maintain high visual engagement throughout the 35-second duration.",
+  "visual_technique": "Starts with a moving stock chart at frame 0, followed by highlighted text-on-screen on every beat, legal document callouts, and simple portfolio pie charts to keep it highly readable on mute.",
+  "reusable_moves": [
+   "The Legal Loophole Hook: Using an unusual legal or corporate event (like force majeure) to create curiosity about a stock's sudden drop.",
+   "The Ripple Effect Bridge: Connecting a single-company setback directly to the viewer's broader portfolio or index funds."
+  ],
+  "remake_plan": "Model this structure by breaking down another major tech giant's unexpected project delay or supply bottleneck using the exact same pacing, starting with a moving chart and explaining the obscure corporate cause in plain English."
+ },
+ "video_id": "aXTJ0QLZF8c",
+ "publish_at": "2026-09-26T22:30:00Z"
+}

@@ -6,3 +6,6 @@
 - [[2026-09-25-microsoft-jumped-3-49-today]] — SHARE · hook 69
 - [[2026-09-25-oil-dropped-6-41-in-five-days]] — SAVE · hook 67
 - [[2026-09-25-nasdaq-up-22-while-dow-drops]] — FOLLOW · hook 60
+- [[2026-09-26-meta-drops-3-33-after-13-week]] — SHARE · hook 75
+- [[2026-09-26-oil-dropped-7-87]] — SAVE · hook 65
+- [[2026-09-26-microsoft-up-3-66-today]] — FOLLOW · hook 69

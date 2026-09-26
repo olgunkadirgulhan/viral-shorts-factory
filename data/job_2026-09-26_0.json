@@ -1,0 +1,165 @@
+{
+ "idea": {
+  "idea": "Why did Meta stock drop 3.33% today despite surging nearly 13% this week? We break down the 'Muse' AI model release and the valuation metric that experts say no longer makes sense for this tech giant.",
+  "goal": "SHARE",
+  "emotion": "awe",
+  "formula": "The Question",
+  "ticker": "META",
+  "structure_from": "https://www.youtube.com/shorts/QOiWrD5ZIW4",
+  "payoff_withheld_until_end": "The exact valuation metric that analysts call 'outdated' after the Muse mic drop is withheld until the final 5 seconds to keep viewers watching the breakdown.",
+  "data_points": [
+   "Meta price is $751.66",
+   "Meta dropped 3.33% today",
+   "Meta is up 12.99% over the last 5 days"
+  ]
+ },
+ "hook": {
+  "hook": "Why did Meta lose 3.33 percent today before you could lock in your 13 percent gain?",
+  "properties": {
+   "SPECIFICITY": 79,
+   "ADDRESS": 66,
+   "STAKES": 88,
+   "CURIOSITY": 76,
+   "BREVITY": 100
+  },
+  "verdict": 75,
+  "band": "STRONG",
+  "formula": "The Question",
+  "on_screen": "LOCK IN META GAINS?"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "Why did Meta lose 3.33 percent today before you could lock in your 13 percent gain?",
+    "osd": "LOCK IN META GAINS?",
+    "emphasis": "LOCK",
+    "visual": "chart",
+    "ticker": "META"
+   },
+   {
+    "say": "Reports say Meta just released its Muse AI model, an image tool designed to win the trust race.",
+    "osd": "MUSE AI MODEL DROPS",
+    "emphasis": "MUSE",
+    "visual": "text",
+    "ticker": "META"
+   },
+   {
+    "say": "Meta is up 12.99 percent this week, but the price hit seven hundred fifty-one dollars and stalled.",
+    "osd": "WEEKLY SURGE STALLS",
+    "emphasis": "STALLS",
+    "visual": "counter",
+    "ticker": "META"
+   },
+   {
+    "say": "Investors worry the rally is overextended as valuation multiples reach levels not seen in years.",
+    "osd": "VALUATION LEVELS SPIKE",
+    "emphasis": "SPIKE",
+    "visual": "compare",
+    "ticker": "META"
+   },
+   {
+    "say": "Analysts call the PEG ratio the outdated metric because Meta now generates massive cash like a value giant.",
+    "osd": "PEG RATIO IS OUTDATED",
+    "emphasis": "OUTDATED",
+    "visual": "text",
+    "ticker": "META"
+   },
+   {
+    "say": "Share this with a tech investor. Follow Why Stocks Moved for daily breakdowns. Not financial advice.",
+    "osd": "Not financial advice",
+    "emphasis": "ADVICE",
+    "visual": "list",
+    "ticker": "META"
+   }
+  ],
+  "word_count": 100,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Meta drops 3.33% after 13% week",
+  "chars": 31,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "31 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (3.33%, 13%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "MUSE AI SHOCK",
+  "visual_brief": "A red downward arrow slicing through a futuristic circuit board texture. Subject (Mark Zuckerberg) on the right, looking concerned. Text in bold yellow on the left, clear of UI areas."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "why did meta stock drop today",
+    "Meta Muse AI model release impact",
+    "Meta stock valuation PEG ratio explained"
+   ],
+   "description": "Find out why Meta stock dropped 3.33% today after gaining 13% this week. We explain the Muse AI release and why traditional valuation metrics like the PEG ratio are failing.\n\nNot financial advice.\n#shorts",
+   "tags": [
+    "META",
+    "Meta stock",
+    "Meta stock price",
+    "Muse AI",
+    "Meta AI model",
+    "Meta stock news",
+    "stock market",
+    "tech stocks",
+    "Why Stocks Moved",
+    "Meta valuation",
+    "PEG ratio",
+    "investing",
+    "NASDAQ",
+    "Meta analysis",
+    "stock market update"
+   ],
+   "query_test_pass": true
+  }
+ },
+ "teardown": {
+  "hook": "Why did Oracle stock just slide after a sudden legal emergency halted their biggest AI project before you buy more tech shares?",
+  "hook_why": "Note: No transcript was available, so this breakdown is modeled from the viral title, the 'Unclassified' formula, and our channel's proven stock-movement structure. The hook stops the scroll in under 1.5 seconds by pairing a high-contrast negative event ('legal emergency') with a massive trend ('AI project') and directly addressing the viewer's wallet ('before you buy more tech shares').",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "Why did Oracle stock just slide after a sudden legal emergency halted their biggest AI project before you buy more tech shares?",
+    "shown": "A downward-trending stock chart of Oracle (ORCL) with bold red text overlay: 'ORACLE HALTED?'"
+   },
+   {
+    "t": "3-9s",
+    "said": "Oracle issued a 'force majeure' notice. That is a legal emergency clause used when uncontrollable events stop a contract.",
+    "shown": "Zoom-in on a legal document mockup highlighting the words 'FORCE MAJEURE' with a simple three-word definition popup."
+   },
+   {
+    "t": "9-16s",
+    "said": "This halted construction on a massive data center designed to power next-generation AI chips.",
+    "shown": "B-roll of a massive, empty server warehouse transitioning to a graphic of an AI microchip."
+   },
+   {
+    "t": "16-23s",
+    "said": "Investors panicked because delays mean slower revenue growth in a market priced for perfection.",
+    "shown": "A bar chart showing Oracle's projected cloud revenue versus the delay impact."
+   },
+   {
+    "t": "23-30s",
+    "said": "If you hold tech index funds, you likely own a piece of this. Always check your underlying holdings.",
+    "shown": "A pie chart showing an index fund's tech sector breakdown with Oracle highlighted."
+   },
+   {
+    "t": "30-35s",
+    "said": "Follow 'Why Stocks Moved' for daily stock breakdowns. Not financial advice.",
+    "shown": "A clean end-screen with the channel logo, a follow button animation, and a small, clear disclaimer at the bottom."
+   }
+  ],
+  "pacing": "Rapid cuts every 5 to 7 seconds, utilizing dynamic zoom-ins on charts to maintain high visual engagement throughout the 35-second duration.",
+  "visual_technique": "Starts with a moving stock chart at frame 0, followed by highlighted text-on-screen on every beat, legal document callouts, and simple portfolio pie charts to keep it highly readable on mute.",
+  "reusable_moves": [
+   "The Legal Loophole Hook: Using an unusual legal or corporate event (like force majeure) to create curiosity about a stock's sudden drop.",
+   "The Ripple Effect Bridge: Connecting a single-company setback directly to the viewer's broader portfolio or index funds."
+  ],
+  "remake_plan": "Model this structure by breaking down another major tech giant's unexpected project delay or supply bottleneck using the exact same pacing, starting with a moving chart and explaining the obscure corporate cause in plain English."
+ },
+ "video_id": "jHvtmU8GUhQ",
+ "publish_at": "2026-09-26T13:30:00Z"
+}

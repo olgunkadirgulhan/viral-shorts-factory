@@ -1,0 +1,165 @@
+{
+ "idea": {
+  "idea": "Oil crashed 7.87% over the last 5 days down to $92.41. Here is exactly what this massive drop means for your stock portfolio and how it's easing inflation pressure on the market.",
+  "goal": "SAVE",
+  "emotion": "relief",
+  "formula": "The Question",
+  "ticker": "CL=F",
+  "structure_from": "https://www.youtube.com/shorts/6f5rmIYBERY",
+  "payoff_withheld_until_end": "A three-step checklist on how to rebalance tech vs energy holdings is revealed only in the last 6 seconds of the video, encouraging saves for future reference.",
+  "data_points": [
+   "Oil price is $92.41",
+   "Oil dropped 2.33% today",
+   "Oil fell 7.87% over the last 5 days"
+  ]
+ },
+ "hook": {
+  "hook": "What do your stocks do now that oil lost 7.87 percent?",
+  "properties": {
+   "SPECIFICITY": 56,
+   "ADDRESS": 76,
+   "STAKES": 62,
+   "CURIOSITY": 59,
+   "BREVITY": 100
+  },
+  "verdict": 65,
+  "band": "WORKABLE",
+  "formula": "The Question",
+  "on_screen": "Stock move logic"
+ },
+ "script": {
+  "beats": [
+   {
+    "say": "What do your stocks do now that oil lost 7.87 percent?",
+    "osd": "Stock move logic",
+    "emphasis": "logic",
+    "visual": "chart",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Crude fell to 92 dollars and 41 cents today as markets shrug off supply fears and reports say energy prices are easing.",
+    "osd": "Oil prices CRASH",
+    "emphasis": "CRASH",
+    "visual": "counter",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "But why does this matter for your portfolio? Lower oil typically acts like a massive tax cut for the entire economy.",
+    "osd": "A TAX cut?",
+    "emphasis": "TAX",
+    "visual": "list",
+    "ticker": "^GSPC"
+   },
+   {
+    "say": "It lowers inflation pressure, which is exactly why tech titans like Microsoft and Apple gained ground this week.",
+    "osd": "Tech stocks SURGE",
+    "emphasis": "SURGE",
+    "visual": "list",
+    "ticker": "MSFT"
+   },
+   {
+    "say": "Here is your rebalance checklist. One: check energy exposure. Two: look at transport costs. Three: watch for tech margin growth.",
+    "osd": "Rebalance CHECKLIST",
+    "emphasis": "CHECKLIST",
+    "visual": "text",
+    "ticker": "CL=F"
+   },
+   {
+    "say": "Save this for your next trade and follow Why Stocks Moved. Not financial advice. Now you can answer...",
+    "osd": "Not financial advice",
+    "emphasis": "advice",
+    "visual": "text",
+    "ticker": "CL=F"
+   }
+  ],
+  "word_count": 110,
+  "mute_pass": true,
+  "length_pass": true
+ },
+ "package": {
+  "title": "Oil dropped 7.87%",
+  "chars": 17,
+  "score": 100,
+  "issues": [],
+  "good": [
+   "17 characters, inside the 60-character desktop cut",
+   "carries a concrete figure (7.87%)",
+   "thumbnail and title carry different words"
+  ],
+  "thumb": "GAS PRICES PLUMMET",
+  "visual_brief": "A downward-sloping red line chart on a dark background. Text 'GAS PRICES PLUMMET' in bold yellow. Subject sits in the center-right. Clear of top 12% and bottom 20%."
+ },
+ "platforms": {
+  "youtube": {
+   "queries": [
+    "why oil dropped today",
+    "oil price impact on tech stocks",
+    "crude oil crash meaning for stocks"
+   ],
+   "description": "Oil just dropped 7.87% to $92.41, easing inflation pressure for the whole market. See how lower energy prices impact tech stocks and how to rebalance your portfolio.\n\nNot financial advice. #shorts",
+   "tags": [
+    "oil price drop",
+    "crude oil",
+    "stock market news",
+    "why stocks moved",
+    "inflation",
+    "tech stocks",
+    "crude oil crash",
+    "energy prices",
+    "msft",
+    "aapl",
+    "portfolio rebalance",
+    "macro economy",
+    "stock market impact",
+    "oil vs stocks",
+    "wti"
+   ],
+   "query_test_pass": true
+  }
+ },
+ "teardown": {
+  "hook": "Why did Oracle stock just slide after a sudden legal emergency halted their biggest AI project before you buy more tech shares?",
+  "hook_why": "Note: No transcript was available, so this breakdown is modeled from the viral title, the 'Unclassified' formula, and our channel's proven stock-movement structure. The hook stops the scroll in under 1.5 seconds by pairing a high-contrast negative event ('legal emergency') with a massive trend ('AI project') and directly addressing the viewer's wallet ('before you buy more tech shares').",
+  "beats": [
+   {
+    "t": "0-3s",
+    "said": "Why did Oracle stock just slide after a sudden legal emergency halted their biggest AI project before you buy more tech shares?",
+    "shown": "A downward-trending stock chart of Oracle (ORCL) with bold red text overlay: 'ORACLE HALTED?'"
+   },
+   {
+    "t": "3-9s",
+    "said": "Oracle issued a 'force majeure' notice. That is a legal emergency clause used when uncontrollable events stop a contract.",
+    "shown": "Zoom-in on a legal document mockup highlighting the words 'FORCE MAJEURE' with a simple three-word definition popup."
+   },
+   {
+    "t": "9-16s",
+    "said": "This halted construction on a massive data center designed to power next-generation AI chips.",
+    "shown": "B-roll of a massive, empty server warehouse transitioning to a graphic of an AI microchip."
+   },
+   {
+    "t": "16-23s",
+    "said": "Investors panicked because delays mean slower revenue growth in a market priced for perfection.",
+    "shown": "A bar chart showing Oracle's projected cloud revenue versus the delay impact."
+   },
+   {
+    "t": "23-30s",
+    "said": "If you hold tech index funds, you likely own a piece of this. Always check your underlying holdings.",
+    "shown": "A pie chart showing an index fund's tech sector breakdown with Oracle highlighted."
+   },
+   {
+    "t": "30-35s",
+    "said": "Follow 'Why Stocks Moved' for daily stock breakdowns. Not financial advice.",
+    "shown": "A clean end-screen with the channel logo, a follow button animation, and a small, clear disclaimer at the bottom."
+   }
+  ],
+  "pacing": "Rapid cuts every 5 to 7 seconds, utilizing dynamic zoom-ins on charts to maintain high visual engagement throughout the 35-second duration.",
+  "visual_technique": "Starts with a moving stock chart at frame 0, followed by highlighted text-on-screen on every beat, legal document callouts, and simple portfolio pie charts to keep it highly readable on mute.",
+  "reusable_moves": [
+   "The Legal Loophole Hook: Using an unusual legal or corporate event (like force majeure) to create curiosity about a stock's sudden drop.",
+   "The Ripple Effect Bridge: Connecting a single-company setback directly to the viewer's broader portfolio or index funds."
+  ],
+  "remake_plan": "Model this structure by breaking down another major tech giant's unexpected project delay or supply bottleneck using the exact same pacing, starting with a moving chart and explaining the obscure corporate cause in plain English."
+ },
+ "video_id": "iOqSdm4WpB0",
+ "publish_at": "2026-09-26T17:00:00Z"
+}
